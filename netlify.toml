@@ -1,0 +1,18 @@
+# AppyHacking (Vexora-App) auf Netlify.
+# Der frühere Cloudflare-Server läuft hier als Netlify Function
+# (netlify/functions/vexora.mjs); die Datenbank liegt als SQLite-Datei in
+# Netlify Blobs. Anleitung: docs/NETLIFY.md
+[build]
+  command = "node build-protect.js && node scripts/netlify-build.js"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+  AWS_LAMBDA_JS_RUNTIME = "nodejs22.x"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+  # Seiten (HTML) und Firmware-Basen liegen im Funktions-Paket und werden nie
+  # direkt ausgeliefert.
+  included_files = ["protected/**", "!protected/_worker.js", "node_modules/sql.js/dist/sql-wasm.wasm"]

@@ -1,3 +1,5 @@
 node_modules/
 protected/
 .wrangler/
+dist/
+.local-store/

@@ -9,7 +9,7 @@
  *  - HTML       -> comentarios fuera + scripts inline minificados
  *
  * Uso:  node build-protect.js   (después de editar public/)
- * Nota: los globals entre archivos (TEA, Sim, APPYHACKING, showView…) se
+ * Nota: los globals entre archivos (TEA, Sim, VEXORA, showView…) se
  * preservan con renameGlobals:false + reservedNames + prefijo único por archivo.
  */
 const fs = require("fs");
@@ -35,7 +35,7 @@ const SERVER_SRC = path.join(__dirname, "server", "worker.js");
 
 // Globals compartidos entre archivos: NUNCA renombrar
 const RESERVED = [
-  "TEA", "Sim", "ZIP3", "APPYHACKING", "AppyHacking", "VexoraLive", "VexoraCfw",
+  "TEA", "Sim", "ZIP3", "VEXORA", "Vexora", "VexoraLive", "VexoraCfw",
   "VexoraX", "I18N", "Consent", "showView", "JSZip",
   "lastBuiltFirmwareEnc", "lastBuiltPartition",
   "abortConnect", "checkAck", "createFrameAssembler", "dropGatt",
