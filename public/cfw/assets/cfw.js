@@ -693,8 +693,8 @@
   }
 })();
 
-/* ═══ v2.3.1 · VXFW gate: la pestaña VXFW comprueba si el firmware custom está
-   instalado. Stock → CTA "Flash VXFW — best tune (MCU + VCU)" que encadena el
+/* ═══ v2.3.1 · AYFW gate: la pestaña AYFW comprueba si el firmware custom está
+   instalado. Stock → CTA "Flash AYFW — best tune (MCU + VCU)" que encadena el
    preset Balanced + flash MCU y, al confirmarse, el flash VCU. Flasheado → todo
    el tuning desbloqueado. ═══ */
 (function VxfwGate() {
@@ -716,7 +716,7 @@
   function probe() {
     const view = $("#view-vxfw");
     if (!view) return;
-    /* switch admin: sin body.mode-vxfw la pestaña VXFW no existe → no lockear nada */
+    /* switch admin: sin body.mode-vxfw la pestaña AYFW no existe → no lockear nada */
     if (!document.body.classList.contains("mode-vxfw")) return;
     const hint = $("#vxfwGateHint"), note = $("#vxfwGateNote"), act = $("#vxfwGateAct");
     if (!hint || !note || !act) return;
@@ -734,7 +734,7 @@
     if (lockState()) {
       hint.textContent = tr("vxfwActive", "active");
       hint.style.color = "var(--ok)";
-      note.textContent = tr("vxfwActiveMsg", "VXFW detected — tune everything below.");
+      note.textContent = tr("vxfwActiveMsg", "AYFW detected — tune everything below.");
       note.className = "note ok";
       act.style.display = "none";
       setLock(false);
@@ -746,10 +746,10 @@
       let model = "g3";
       try { model = localStorage.getItem("vexora.model") || "g3"; } catch (e) {}
       if (model !== "g3") {
-        note.textContent = tr("vxfwOther", "VXFW one-click tune is for Max G3 right now.") + (model === "zt3" ? " " + tr("vxfwZt3", "ZT3 Pro: use the ZT3 controller firmware card below.") : "");
+        note.textContent = tr("vxfwOther", "AYFW one-click tune is for Max G3 right now.") + (model === "zt3" ? " " + tr("vxfwZt3", "ZT3 Pro: use the ZT3 controller firmware card below.") : "");
         act.style.display = "none";
       } else {
-        note.textContent = tr("vxfwStockMsg", "Stock firmware detected — flash VXFW to unlock tuning.");
+        note.textContent = tr("vxfwStockMsg", "Stock firmware detected — flash AYFW to unlock tuning.");
         act.style.display = "flex";
       }
       setLock(true);
@@ -765,7 +765,7 @@
     const btn = $("#btnVxfwBest");
     const btnTxt = btn ? btn.textContent : "";
     try {
-      if (btn) { btn.disabled = true; btn.textContent = tr("bVxfwFlashing", "Flashing VXFW… keep this open"); }
+      if (btn) { btn.disabled = true; btn.textContent = tr("bVxfwFlashing", "Flashing AYFW… keep this open"); }
       const note = $("#vxfwGateNote");
       if (note) note.textContent = tr("vxfwStepMcu", "Flashing best tune — MCU (motor)… keep the scooter on.");
       const pb = $("#presetBest"); if (pb) pb.click();

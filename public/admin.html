@@ -279,7 +279,7 @@
         <div class="row wrap">
           <label class="sw"><input type="checkbox" id="flagTire" /><i></i><span>Wheel size tool</span></label>
           <label class="sw"><input type="checkbox" id="flagCfw" /><i></i><span>Firmware builds (custom)</span></label>
-          <label class="sw"><input type="checkbox" id="flagVxfw" /><i></i><span>VXFW tab &mdash; replaces CFW + Motor (release switch)</span></label>
+          <label class="sw"><input type="checkbox" id="flagVxfw" /><i></i><span>AYFW tab &mdash; replaces CFW + Motor (release switch)</span></label>
           <label class="sw"><input type="checkbox" id="flagMaint" /><i></i><span>Maintenance mode</span></label>
         </div>
         <p class="hint" style="margin:10px 0 0" id="maintState"></p>
@@ -1029,7 +1029,7 @@
       $("#fbCount").textContent = rows.length ? rows.length + " loaded (max 500)" : "";
       el.innerHTML = rows.length ? rows.map(function(f) {
         var d = new Date(f.ts || 0);
-        return '<tr><td style="padding:8px 8px 12px 0;border-bottom:1px solid rgba(255,255,255,.08);vertical-align:top">' + "<b>" + fbFlag(f.country) + " " + esc(f.country || "??") + "</b> · " + esc(fbDevice(f.ua)) + " · 🛴 <b>" + esc((f.model || "?").toUpperCase()) + "</b> (" + esc(f.how || "?") + (f.fw && f.fw !== "--" ? " · fw " + esc(f.fw) : "") + ")" + " · " + "★".repeat(Math.max(0, Math.min(5, f.rating || 0))) + "<br><span class='hint'>" + esc(d.toISOString().slice(0, 16).replace("T", " ")) + " UTC · " + esc(f.lang || "?") + " · app " + esc(f.app || "?") + " · ip " + esc(f.ip || "") + "</span>" + (f.msg ? "<br>" + esc(f.msg) : "") + "</td></tr>";
+        return '<tr><td style="padding:8px 8px 12px 0;border-bottom:1px solid rgba(255,255,255,.08);vertical-align:top">' + (f.name ? "<b>" + esc(f.name) + "</b> · " : "") + "<b>" + fbFlag(f.country) + " " + esc(f.country || "??") + "</b> · " + esc(fbDevice(f.ua)) + " · 🛴 <b>" + esc((f.model || "?").toUpperCase()) + "</b> (" + esc(f.how || "?") + (f.fw && f.fw !== "--" ? " · fw " + esc(f.fw) : "") + ")" + " · " + "★".repeat(Math.max(0, Math.min(5, f.rating || 0))) + "<br><span class='hint'>" + esc(d.toISOString().slice(0, 16).replace("T", " ")) + " UTC · " + esc(f.lang || "?") + " · app " + esc(f.app || "?") + " · ip " + esc(f.ip || "") + "</span>" + (f.msg ? "<br>" + esc(f.msg) : "") + "</td></tr>";
       }).join("") : "<tr><td class='hint'>No feedback yet</td></tr>";
     }).catch(function() {});
   }

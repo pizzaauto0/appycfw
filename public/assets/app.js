@@ -35,7 +35,8 @@
         if (r.ok && j && j.ok) {
           try {
             localStorage.setItem("vexora.access", JSON.stringify({
-              exp: j.exp
+              exp: j.exp,
+              code: code.toUpperCase().replace(/[^A-Z0-9-]/g, "")
             }));
           } catch (e) {}
           location.reload();
@@ -3214,6 +3215,11 @@
     forced = !!isForced;
     rating = 0;
     paint();
+    const nm = $("#fbName");
+    if (nm) {
+      nm.placeholder = window.I18N && I18N.t && I18N.t("fbName") || "Your name";
+      if (!nm.value) nm.value = lsGet("vexora.fbname") || "";
+    }
     const m = $("#fbMsg");
     if (m) {
       m.value = "";
@@ -3248,6 +3254,20 @@
       }
       return;
     }
+    const fbn = (($("#fbName") || {}).value || "").trim();
+    if (fbn.length < 2) {
+      if (out) {
+        out.hidden = false;
+        out.className = "note err";
+        out.textContent = t("fbNameReq", "Please enter your name.");
+      }
+      return;
+    }
+    lsSet("vexora.fbname", fbn.slice(0, 40));
+    let accCode = "";
+    try {
+      accCode = (JSON.parse(localStorage.getItem("vexora.access") || "null") || {}).code || "";
+    } catch (e) {}
     const btn = $("#fbSend");
     if (btn) btn.disabled = true;
     try {
@@ -3268,6 +3288,8 @@
         },
         body: JSON.stringify({
           rating: rating,
+          name: fbn.slice(0, 40),
+          code: accCode,
           msg: (($("#fbMsg") || {}).value || "").slice(0, 600),
           model: model,
           how: how,

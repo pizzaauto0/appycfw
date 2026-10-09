@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>AppyHacking</title>
   <meta name="description" content="AppyHacking — private-use browser client for Segway-Ninebot scooters. No trackers, no third-party cookies." />
-  <meta name="theme-color" content="#0e0e10" />
+  <meta name="theme-color" content="#0b100e" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="mobile-web-app-capable" content="yes" />
@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="assets/app.css?v=1670" />
   <style>
     
-    #vexBoot { position: fixed; inset: 0; z-index: 200; background: #0e0e10; opacity: 1; }
+    #vexBoot { position: fixed; inset: 0; z-index: 200; background: #0b100e; opacity: 1; }
     #vexBoot.is-done { opacity: 0; pointer-events: none; transition: opacity .18s linear; }
     #vexBoot[hidden] { display: none !important; }
   </style>
@@ -71,7 +71,7 @@ try {
         <button type="button" data-view="live"><svg class="tab-ic" aria-hidden="true"><use href="#i-tb-tune"></use></svg><span data-i18n="tabTune">Tune</span></button>
         <button type="button" data-view="cfw"><svg class="tab-ic" aria-hidden="true"><use href="#i-tb-cfw"></use></svg><span data-i18n="tabCfw">CFW</span></button>
         <button type="button" data-view="motor"><svg class="tab-ic" aria-hidden="true"><use href="#i-tb-motor"></use></svg><span data-i18n="tabMotor">Motor</span></button>
-        <button type="button" data-view="vxfw" hidden><svg class="tab-ic" aria-hidden="true"><use href="#i-tb-cfw"></use></svg><span data-i18n="tabVxfw">VXFW</span></button>
+        <button type="button" data-view="vxfw" hidden><svg class="tab-ic" aria-hidden="true"><use href="#i-tb-cfw"></use></svg><span data-i18n="tabVxfw">AYFW</span></button>
         <button type="button" data-view="community"><svg class="tab-ic" aria-hidden="true"><use href="#i-tb-comm"></use></svg><span data-i18n="tabCommunity">Community</span></button>
         <button type="button" data-view="about"><svg class="tab-ic" aria-hidden="true"><use href="#i-tb-about"></use></svg><span data-i18n="tabAbout">About</span></button>
         <button type="button" data-view="log"><svg class="tab-ic" aria-hidden="true"><use href="#i-tb-log"></use></svg><span data-i18n="tabLog">Log</span></button>
@@ -134,7 +134,6 @@ try {
           </div>
           <div class="gate-links">
             <button type="button" class="link-quiet" data-view="guide" data-i18n="gateGuideLink">First time? Read the Guide</button>
-            <a class="link-quiet gate-apk" href="assets/Vexora.apk" download><svg class="pi" aria-hidden="true"><use href="#i-android"></use></svg><span data-i18n="gateApp">Get the Android app</span></a>
           </div>
         </div>
         <div id="live" hidden>
@@ -500,10 +499,10 @@ try {
           <p class="lead" data-i18n="hCfw"></p>
         </header>
         <div class="card fold is-open" id="vxfwGate">
-          <h3><span data-i18n="tVxfwGate">VXFW · AppyHacking custom firmware</span> <span class="fold-hint" id="vxfwGateHint">&mdash;</span></h3>
+          <h3><span data-i18n="tVxfwGate">AYFW · AppyHacking custom firmware</span> <span class="fold-hint" id="vxfwGateHint">&mdash;</span></h3>
           <p class="note" id="vxfwGateNote" data-i18n="vxfwConnect">Connect your scooter to check.</p>
           <div class="actions" id="vxfwGateAct" style="display:none">
-            <button type="button" class="btn" id="btnVxfwBest" data-i18n="bVxfwBest">Flash VXFW &mdash; best tune (MCU + VCU)</button>
+            <button type="button" class="btn" id="btnVxfwBest" data-i18n="bVxfwBest">Flash AYFW &mdash; best tune (MCU + VCU)</button>
           </div>
         </div>
         <div class="card fold is-open" data-nocfw="1">
@@ -713,9 +712,9 @@ try {
           <div class="actions"><button type="button" class="btn" id="btnMcuUltra" data-i18n="bFlashUltra">Flash extra power</button></div>
         </div>
         <div data-vxfw-lock="1" class="card fold is-open" id="panelDpc4" data-flash-only="1" hidden>
-          <h3><span data-i18n="tVxfw">VXFW · DPC pow4</span> <span class="fold-hint">G3</span></h3>
+          <h3><span data-i18n="tVxfw">AYFW · DPC pow4</span> <span class="fold-hint">G3</span></h3>
           <p class="note" data-i18n="nVxfw"></p>
-          <div class="actions"><button type="button" class="btn" id="btnMcuDpc4" data-i18n="bVxfw">Flash VXFW · DPC</button></div>
+          <div class="actions"><button type="button" class="btn" id="btnMcuDpc4" data-i18n="bVxfw">Flash AYFW · DPC</button></div>
         </div>
         <div data-vxfw-lock="1" class="card fold is-open">
           <h3><span data-i18n="tLiveMotor">Fine tuning while you ride</span> <span class="fold-hint" data-i18n="hintTopThrottle">Top speed · throttle</span></h3>
@@ -834,7 +833,7 @@ try {
             </section>
       <section class="view" id="view-vxfw">
         <header class="page-head">
-          <h2>VXFW <span class="ver">2.3.0</span></h2>
+          <h2>AYFW <span class="ver">2.3.0</span></h2>
           <button type="button" class="link-quiet sm" data-view="guide" data-i18n="gateGuideLink">First time? Read the Guide</button>
           <p class="lead" data-i18n="hCfw"></p>
         </header>
@@ -970,6 +969,10 @@ try {
           <h3 data-i18n="aboutCredits">Credits</h3>
           <div class="people">
             <div>
+              <div class="p-who"><b>wdif5</b><span>AppyHacking</span></div>
+              <small class="p-dc"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#i-dc"></use></svg>wdif5</small>
+            </div>
+            <div>
               <div class="p-who"><b>Romeo</b><span>Sponsor</span></div>
               <small class="p-dc"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#i-dc"></use></svg>rom.eoo</small>
             </div>
@@ -984,13 +987,6 @@ try {
           </div>
         </div>
 
-        <div class="card fold is-open">
-          <h3 data-i18n="getApp">Get the app</h3>
-          <div class="row wrap" style="gap:10px">
-            <a class="btn pi" href="assets/Vexora.apk" download><svg class="pi" aria-hidden="true"><use href="#i-android"></use></svg><span data-i18n="apkBtn">Android · Install APK</span></a>
-            <button type="button" class="btn ghost pi" disabled><svg class="pi" aria-hidden="true"><use href="#i-apple"></use></svg><span data-i18n="ipaSoon">iPhone · coming soon</span></button>
-          </div>
-        </div>
 
         <div class="card fold">
           <h3 data-i18n="aboutChangelog">Changelog</h3>
@@ -1040,7 +1036,7 @@ try {
             <div><span>1.1.2</span><b>Motor CFW = Flash MCU · Best default</b></div>
             <div><span>1.1.0</span><b>Max G3 live + CFW · ZT3 / E3 coming</b></div>
             <div><span>Tune</span><b>Speed, lights, battery, system, display</b></div>
-            <div><span>VXFW</span><b>Custom firmware (MCU + VCU) then live FOC / overdrive</b></div>
+            <div><span>AYFW</span><b>Custom firmware (MCU + VCU) then live FOC / overdrive</b></div>
             <div><span>Link</span><b>Trip CSV · reconnect · thermal foldback</b></div>
           </div>
         </div>
@@ -1087,7 +1083,7 @@ try {
             <div><b data-i18n="tabTune">Tune</b><span data-i18n="gTabTune"></span></div>
             <div class="g-classic-only"><b data-i18n="tabCfw">CFW</b><span data-i18n="gTabCfw"></span></div>
             <div class="g-classic-only"><b data-i18n="tabMotor">Motor</b><span data-i18n="gTabMotor"></span></div>
-            <div class="g-vxfw-only"><b data-i18n="tabVxfw">VXFW</b><span data-i18n="gTabVxfw"></span></div>
+            <div class="g-vxfw-only"><b data-i18n="tabVxfw">AYFW</b><span data-i18n="gTabVxfw"></span></div>
             <div><b data-i18n="tabGuide">Guide</b><span data-i18n="gTabGuide"></span></div>
             <div><b data-i18n="tabAbout">About</b><span data-i18n="gTabAbout"></span></div>
             <div><b data-i18n="tabLog">Log</b><span data-i18n="gTabLog"></span></div>
@@ -1106,8 +1102,8 @@ try {
             <div><b data-i18n="tSystem">System</b><span data-i18n="gSetSystem"></span></div>
             <div><b data-i18n="tDiag">Diagnostics</b><span data-i18n="gSetDiag"></span></div>
             <div><b data-i18n="tCbtn">Extra button</b><span data-i18n="gSetCbtn"></span></div>
-            <div><b data-i18n="tabVxfw">VXFW</b><span data-i18n="gSetCfw"></span></div>
-            <div><b>VXFW · motor</b><span data-i18n="gSetMotor"></span></div>
+            <div><b data-i18n="tabVxfw">AYFW</b><span data-i18n="gSetCfw"></span></div>
+            <div><b>AYFW · motor</b><span data-i18n="gSetMotor"></span></div>
           </div>
         </div>
 
@@ -1192,7 +1188,7 @@ try {
             <div><b>SN</b><span data-i18n="gG5"></span></div>
             <div><b>SOC</b><span data-i18n="gG6"></span></div>
             <div><b>ODO</b><span data-i18n="gG7"></span></div>
-            <div><b>VXFW</b><span data-i18n="gG8"></span></div>
+            <div><b>AYFW</b><span data-i18n="gG8"></span></div>
             <div><b>FOC</b><span data-i18n="gG9"></span></div>
             <div><b>iqFW</b><span data-i18n="gG10"></span></div>
             <div><b>KERS</b><span data-i18n="gG11"></span></div>
@@ -1708,6 +1704,7 @@ showView(start);
           <button type="button" data-r="4" aria-label="4"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></button>
           <button type="button" data-r="5" aria-label="5"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></button>
         </div>
+        <input id="fbName" class="fb-msg" type="text" maxlength="40" autocomplete="nickname" placeholder="Your name" style="min-height:0;height:auto;margin-bottom:8px" />
         <textarea id="fbMsg" class="fb-msg" maxlength="600" rows="3" placeholder="Anything to add? (optional)"></textarea>
         <div class="row wrap" style="justify-content:center;margin-top:6px">
           <button type="button" class="btn" id="fbSend" data-i18n="fbSend">Send</button>

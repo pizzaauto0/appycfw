@@ -459,9 +459,9 @@ async function closeWin(dom, label) {
         Accept: "text/html"
       }
     })).text();
-    ok("html: pestañas CFW + Motor + VXFW oculta", html.indexOf('data-view="cfw"') >= 0 && html.indexOf('data-view="motor"') >= 0 && /data-view="vxfw" hidden/.test(html));
+    ok("html: pestañas CFW + Motor + AYFW oculta", html.indexOf('data-view="cfw"') >= 0 && html.indexOf('data-view="motor"') >= 0 && /data-view="vxfw" hidden/.test(html));
     ok("html: 3 views (cfw + motor + vxfw contenedor)", html.indexOf('id="view-cfw"') >= 0 && html.indexOf('id="view-motor"') >= 0 && html.indexOf('id="view-vxfw"') >= 0);
-    ok("html: gate VXFW solo en modo ON (CSS mode-vxfw)", html.indexOf('id="vxfwGate"') >= 0);
+    ok("html: gate AYFW solo en modo ON (CSS mode-vxfw)", html.indexOf('id="vxfwGate"') >= 0);
     ok("html: known issues ZT3 (temp/modos/power/unlock)", html.indexOf('data-i18n="zt3BugTemp"') >= 0 && html.indexOf('data-i18n="zt3BugPower"') >= 0 && html.indexOf('data-i18n="zt3BugModes"') >= 0 && html.indexOf('data-i18n="zt3BugUnlock"') >= 0);
     ok("html: guía con filas clásicas + vxfw", html.indexOf("g-classic-only") >= 0 && html.indexOf("g-vxfw-only") >= 0);
     const on2 = await jadmin("POST", "/admin/api/flags", {
@@ -472,7 +472,7 @@ async function closeWin(dom, label) {
         vxfw: true
       }
     }, TOKEN);
-    ok("panel: switch VXFW ON guardado", on2.status === 200 && on2.body.ok === true && on2.body.flags.vxfw === 1);
+    ok("panel: switch AYFW ON guardado", on2.status === 200 && on2.body.ok === true && on2.body.flags.vxfw === 1);
     for (let i = 0; i < 60; i++) {
       f = await jget("/api/features");
       if (f.body.features.vxfw === 1) break;
@@ -487,7 +487,7 @@ async function closeWin(dom, label) {
         vxfw: false
       }
     }, TOKEN);
-    ok("panel: switch VXFW OFF restaurado", off2.status === 200 && off2.body.flags.vxfw === 0);
+    ok("panel: switch AYFW OFF restaurado", off2.status === 200 && off2.body.flags.vxfw === 0);
     for (let i = 0; i < 60; i++) {
       f = await jget("/api/features");
       if (f.body.features.vxfw === 0) break;
@@ -1885,10 +1885,6 @@ async function closeWin(dom, label) {
   var modelAntes = wP.eval("window.Vexora.model");
   wP.eval("document.querySelector('#modelStrip .pick-card[data-group=e3]').click()");
   ok("e3 aparcado: card E3·E3 Pro deshabilitada con tag 'soon' y sin efecto al pulsar", wP.eval("document.querySelector('#modelStrip .pick-card[data-group=e3]').disabled") === true && wP.eval("!!document.querySelector('#modelStrip .pick-card[data-group=e3] .pick-soon')") === true && wP.eval("document.querySelector('#pickWhich').hidden") === true && wP.eval("window.Vexora.model") === modelAntes);
-  ok("app: botón APK en About + enlace en el gate + IPA 'pronto'", !!wP.eval("document.querySelector('[data-i18n=apkBtn]' )") && homeHtml.indexOf("assets/Vexora.apk") >= 0 && (wP.eval("(document.querySelector('[data-i18n=ipaSoon]')||{}).textContent") || "").length > 3);
-  const apkRes = await fetch(BASE + "/assets/Vexora.apk");
-  const apkBytes = new Uint8Array(await apkRes.arrayBuffer());
-  ok("app: /assets/Vexora.apk sirve el APK real (200 · >500 KB · ZIP magic PK)", apkRes.status === 200 && apkBytes.length > 5e5 && apkBytes[0] === 80 && apkBytes[1] === 75, apkRes.status + " · " + apkBytes.length + " B");
   wP.eval("document.querySelector('#modelStrip .pick-card[data-model=g3]').click()");
   ok("gate: al volver a un modelo simple, el selector 'cuál es el tuyo' se oculta", wP.eval("document.querySelector('#pickWhich').hidden") === true && wP.eval("window.Vexora.model") === "g3");
   wP.eval("document.querySelector('#modelStrip .pick-card[data-group=f3]').click()");
@@ -2523,14 +2519,14 @@ async function closeWin(dom, label) {
     await closeWin(shBad, "shareBad");
   }
   {
-    console.log("== N · VXFW · DPC pow4 ==");
+    console.log("== N · AYFW · DPC pow4 ==");
     const fsN = require("fs"), pathN = require("path");
     const VU2 = require(pathN.join(__dirname, "..", "server", "worker.js"));
     const tea2 = VU2._internal.TEA;
     const baseDpc = fsN.readFileSync(pathN.join(__dirname, "..", "public", "cfw", "bases", "mcu-vxfw-dpc4.dec.bin"));
     ok("vxfw: base 59.388 B + marker SCOOTER_MCU_0001 + key-slot FF", baseDpc.length === 59388 && baseDpc.slice(1024, 1040).toString("latin1") === "SCOOTER_MCU_0001" && Array.from(baseDpc.slice(1056, 1078)).every(c => c === 255));
     const wkN = fsN.readFileSync(pathN.join(__dirname, "..", "server", "worker.js"), "utf8");
-    ok("vxfw: worker integra dpc4 (base + enforce G3 + note)", wkN.indexOf("mcu-vxfw-dpc4.dec.bin") >= 0 && wkN.indexOf("VXFW DPC is Max G3 only") >= 0 && wkN.indexOf("VXFW · DPC pow4") >= 0);
+    ok("vxfw: worker integra dpc4 (base + enforce G3 + note)", wkN.indexOf("mcu-vxfw-dpc4.dec.bin") >= 0 && wkN.indexOf("AYFW DPC is Max G3 only") >= 0 && wkN.indexOf("AYFW · DPC pow4") >= 0);
     const VXIP = {
       "cf-connecting-ip": "172.16.4.41"
     };
@@ -2547,7 +2543,7 @@ async function closeWin(dom, label) {
       }
     }, VXIP);
     let dpcImg = null;
-    ok("vxfw: build API 200 · part mcu · note VXFW", b1.status === 200 && b1.body && b1.body.ok === true && b1.body.part === "mcu" && String(b1.body.note || "").indexOf("VXFW") >= 0, JSON.stringify(b1.body || {}).slice(0, 120));
+    ok("vxfw: build API 200 · part mcu · note AYFW", b1.status === 200 && b1.body && b1.body.ok === true && b1.body.part === "mcu" && String(b1.body.note || "").indexOf("AYFW") >= 0, JSON.stringify(b1.body || {}).slice(0, 120));
     if (b1.body && b1.body.ok) {
       dpcImg = tea2.unwrap(Buffer.from(b1.body.enc, "base64"));
       const u8 = dpcImg.body;
@@ -2685,7 +2681,7 @@ async function closeWin(dom, label) {
       }
     });
     const tRoot = await rRoot.text();
-    ok("landing raíz: pública (minimal: trio + flota + acceso 30s + License soon + vxfw + Studio CTA)", rRoot.status === 200 && tRoot.indexOf("Open AppyHacking Tuning") >= 0 && tRoot.indexOf("Open AppyHacking BLE Studio") >= 0 && tRoot.indexOf("https://vexora.printspace.at/") >= 0 && tRoot.indexOf("VXFW") >= 0 && tRoot.indexOf("screen colors") >= 0 && tRoot.indexOf("F3 PRO") >= 0 && tRoot.indexOf("Coming soon") >= 0 && tRoot.indexOf("discord.gg/sGggH3VpN") >= 0);
+    ok("landing raíz: pública (minimal: trio + flota + acceso 30s + License soon + vxfw + Studio CTA)", rRoot.status === 200 && tRoot.indexOf("Open AppyHacking Tuning") >= 0 && tRoot.indexOf("Open AppyHacking BLE Studio") >= 0 && tRoot.indexOf("https://vexora.printspace.at/") >= 0 && tRoot.indexOf("AYFW") >= 0 && tRoot.indexOf("screen colors") >= 0 && tRoot.indexOf("F3 PRO") >= 0 && tRoot.indexOf("Coming soon") >= 0 && tRoot.indexOf("discord.gg/sGggH3VpN") >= 0);
     const rAppH = await fetch(BASE + "/app", {
       headers: {
         Accept: "text/html"
@@ -2693,7 +2689,7 @@ async function closeWin(dom, label) {
     });
     const appHtml = await rAppH.text();
     ok("app servida en /app (gate incluido)", rAppH.status === 200 && appHtml.indexOf("accessOverlay") >= 0);
-    ok("vxfw switch: 3 pestañas en el html (CFW + Motor visibles por defecto, VXFW oculta hasta el flag)", appHtml.indexOf('data-view="vxfw"') >= 0 && /data-view="vxfw" hidden/.test(appHtml) && appHtml.indexOf('data-view="cfw"') >= 0 && appHtml.indexOf('data-view="motor"') >= 0 && appHtml.indexOf('id="view-vxfw"') >= 0 && appHtml.indexOf('id="view-motor"') >= 0 && appHtml.indexOf('id="view-cfw"') >= 0);
+    ok("vxfw switch: 3 pestañas en el html (CFW + Motor visibles por defecto, AYFW oculta hasta el flag)", appHtml.indexOf('data-view="vxfw"') >= 0 && /data-view="vxfw" hidden/.test(appHtml) && appHtml.indexOf('data-view="cfw"') >= 0 && appHtml.indexOf('data-view="motor"') >= 0 && appHtml.indexOf('id="view-vxfw"') >= 0 && appHtml.indexOf('id="view-motor"') >= 0 && appHtml.indexOf('id="view-cfw"') >= 0);
     ok("vxfw: gate + best tune + tuning dentro de la vista", appHtml.indexOf('id="vxfwGate"') >= 0 && appHtml.indexOf('id="btnVxfwBest"') >= 0 && appHtml.indexOf('data-vxfw-lock="1"') >= 0 && appHtml.indexOf('id="panelDpc4"') >= 0 && appHtml.indexOf('id="btnVcu"') >= 0);
     ok("vxfw: Studio link actualizado (printspace) y solo F3 Pro", appHtml.indexOf("https://vexora.printspace.at/") >= 0 && appHtml.indexOf("duckdns") === -1 && appHtml.indexOf("F3 / F3 Pro") === -1 && appHtml.indexOf("Max G3 and F3 Pro take custom BLE payloads") >= 0);
     const ACC_IP = {

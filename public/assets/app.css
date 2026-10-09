@@ -36,18 +36,18 @@
 
 :root {
   /* surfaces */
-  --bg: #0e0e10;
-  --panel: #151518;
-  --panel-2: #1b1b1f;
-  --sunken: #121215;
+  --bg: #0b100e;
+  --panel: #111815;
+  --panel-2: #17201c;
+  --sunken: #0e1411;
   /* lines */
-  --line: #26262b;
-  --line-2: #34343b;
+  --line: #222d27;
+  --line-2: #34423a;
   /* type */
   --text: #f2f2f4;
   --muted: #9d9da7;
   --muted-2: #82828a; /* 4.5:1 sobre panel-2 (a11y) */
-  --fg: #0e0e10;
+  --fg: #0b100e;
   /* status (semantic only — never decorative) */
   --ok: #31c48d;
   --ok-dim: #1c4a37;
@@ -111,7 +111,7 @@ button, .btn, .tabs button, .seg button, .sw, .chk, .faq summary {
 /* —— top bar —— */
 .top {
   position: sticky; top: 0; z-index: 40;
-  background: rgba(14, 14, 16, .96);
+  background: rgba(11, 16, 14, .96);
   border-bottom: 1px solid var(--line);
   padding-top: env(safe-area-inset-top, 0);
 }
@@ -222,7 +222,7 @@ body.is-pairing .status-chip {
 .tabs {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
   display: flex; gap: 0; padding: 0 0 env(safe-area-inset-bottom, 0px);
-  background: rgba(14, 14, 16, .96);
+  background: rgba(11, 16, 14, .96);
   border-top: 1px solid var(--line);
   scrollbar-width: none;
 }
@@ -374,7 +374,7 @@ h2 .ver { color: var(--muted); font-weight: 400; font-size: 14px; letter-spacing
   background: transparent; color: var(--text);
   border-color: var(--line-2);
 }
-.btn.ghost:hover { background: var(--panel-2); border-color: #43434c; }
+.btn.ghost:hover { background: var(--panel-2); border-color: #3f5046; }
 .btn.danger { background: var(--danger); color: #fff; }
 .btn.danger:hover { background: #f05a5f; }
 .btn.sm { padding: 8px 12px; min-height: 44px; font-size: 12px; border-radius: var(--r-sm); }
@@ -1428,7 +1428,6 @@ html.vex-ready .main { animation: vexUp .55s .05s ease-out both; }
 /* —— iconos de plataforma (Android / Apple) —— */
 svg.pi { width: 16px; height: 16px; flex: 0 0 auto; }
 .btn.pi { display: inline-flex; align-items: center; gap: 8px; justify-content: center; }
-.link-quiet.gate-apk { display: inline-flex; align-items: center; gap: 8px; }
 
 /* ==========================================================================
    MOBILE — app-like bottom navigation (≤ 640 px)
@@ -1503,7 +1502,7 @@ svg.pi { width: 16px; height: 16px; flex: 0 0 auto; }
   .ring-stage { animation: none; }
 }
 
-/* v2.3.2 · VXFW release switch (admin flag): body.mode-vxfw = solo pestaña VXFW */
+/* v2.3.2 · AYFW release switch (admin flag): body.mode-vxfw = solo pestaña AYFW */
 body:not(.mode-vxfw) [data-view="vxfw"] { display: none !important; }
 body.mode-vxfw [data-view="cfw"], body.mode-vxfw [data-view="motor"] { display: none !important; }
 body:not(.mode-vxfw) #vxfwGate { display: none !important; }
@@ -1542,10 +1541,10 @@ body.mode-vxfw .g-classic-only { display: none !important; }
    profundidad contenida. Capa de acabado: no elimina selectores de v2.
    ========================================================================== */
 :root {
-  --r: 14px;
-  --r-lg: 20px;
-  --line: #27272f;
-  --line-2: #3f3f4a;
+  --r: 16px;
+  --r-lg: 22px;
+  --line: #232e28;
+  --line-2: #3a4a41;
   --shadow-card: 0 1px 0 rgba(255,255,255,.03) inset, 0 14px 34px rgba(0,0,0,.38);
   --shadow-pop: 0 8px 22px rgba(0,0,0,.45);
 }
@@ -1666,3 +1665,6 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { border-color
 .rid-step-t { font-size: 21px; letter-spacing: -.01em; margin: 2px 0 2px; }
 .rid-forms input:focus { border-color: #2f6bff; }
 #ridFind:focus, #dmInput:focus { border-color: #3ddc84; }
+
+/* AppyHacking look: soft green-tinted glow behind the app */
+body { background-image: radial-gradient(120% 55% at 50% -8%, rgba(70, 190, 130, .09), transparent 62%); background-repeat: no-repeat; }

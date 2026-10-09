@@ -33,7 +33,7 @@ Everything runs on **Cloudflare Pages + Functions + D1 + R2**. No frameworks, no
 
 ## Features
 
-### Tuning studio (VXFW / CFW)
+### Tuning studio (AYFW / CFW)
 - MCU/VCU custom firmware builds for supported controllers, assembled **100% in the browser and the Worker** — no third-party services.
 - Proprietary TEA-based container with checksums; the stock file is never persisted server-side (processed in memory, byte-addressed patches).
 - Speed-limit raise with hard server-side guardrails (e.g. calibration clamps), so the tool cannot produce unsafe targets.
