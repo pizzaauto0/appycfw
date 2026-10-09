@@ -48,6 +48,17 @@
       btn.disabled = false;
     });
     gated = true;
+    // Kommt der Code von der Zugangsseite (?ac=...), automatisch anmelden
+    try {
+      const u = new URL(location.href), ac = u.searchParams.get("ac");
+      if (ac && btn) {
+        u.searchParams.delete("ac");
+        history.replaceState(null, "", u.pathname + u.search + u.hash);
+        const inp = $("#accCode");
+        if (inp) inp.value = ac;
+        btn.click();
+      }
+    } catch (e) {}
   })();
   window.VexoraUnlock = function() {
     let pend = null;

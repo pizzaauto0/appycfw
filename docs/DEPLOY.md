@@ -1,6 +1,6 @@
 # Despliegue en Cloudflare Pages (guía original, en español)
 
-Esta es la guía tal y como la usaba el autor para desplegar `vexorium.pages.dev`.
+Esta es la guía tal y como la usaba el autor para desplegar `appyhacking-app.netlify.app`.
 
 ## 1. Requisitos
 

@@ -535,7 +535,7 @@ async function closeWin(dom, label) {
     }
   });
   const tL = await rL.text();
-  ok("landing raíz: 200 + Open AppyHacking Tuning + Coming soon + vxfw", rL.status === 200 && tL.indexOf("Open AppyHacking Tuning") >= 0 && tL.indexOf("Coming soon") >= 0 && tL.indexOf("discord.gg/vxfw") >= 0);
+  ok("landing raíz: 200 + Open AppyHacking Tuning + Coming soon + vxfw", rL.status === 200 && tL.indexOf("Open AppyHacking Tuning") >= 0 && tL.indexOf("Coming soon") >= 0 && tL.indexOf("discord.gg/sGggH3VpN") >= 0);
   ok("home changelog 2.3.0 + 2.2.0 + 2.1.0 (+ anteriores)", homeHtml.indexOf("<span>2.3.0</span>") >= 0 && homeHtml.indexOf("<span>2.2.0</span>") >= 0 && homeHtml.indexOf("<span>2.1.2</span>") >= 0 && homeHtml.indexOf("<span>2.1.0</span>") >= 0);
   ok("changelog público sin detalles internos (admin/bans/stats/maintenance msg)", homeHtml.indexOf("<span>2.1.3</span>") === -1 && !/admin panel|ip banning|usage stats|csv export|admin control|bans with|maintenance message/i.test(homeHtml));
   ok("público: sin nombre personal en la nota de privacidad", homeHtml.indexOf("Ignition, founder") === -1);
@@ -1608,7 +1608,7 @@ async function closeWin(dom, label) {
     const resDef = await fetch(BASE + "/app");
     const htmlDef = await resDef.text();
     ok("maint 2.2.0: sin razón → texto por defecto", htmlDef.indexOf("Back at 18:00") === -1 && htmlDef.indexOf("Scheduled maintenance") >= 0);
-    ok("maint: página minimal B/N — Scheduled maintenance · back soon · Discord · sin relleno", htmlDef.indexOf("Scheduled maintenance") >= 0 && /back soon/i.test(htmlDef) && htmlDef.indexOf("discord.gg/vxfw") >= 0 && htmlDef.indexOf("prefers-reduced-motion") >= 0 && htmlDef.indexOf("vexorium.pages.dev") >= 0 && htmlDef.indexOf("Checked ") === -1 && htmlDef.indexOf("not affected") === -1);
+    ok("maint: página minimal B/N — Scheduled maintenance · back soon · Discord · sin relleno", htmlDef.indexOf("Scheduled maintenance") >= 0 && /back soon/i.test(htmlDef) && htmlDef.indexOf("discord.gg/sGggH3VpN") >= 0 && htmlDef.indexOf("prefers-reduced-motion") >= 0 && htmlDef.indexOf("appyhacking-app.netlify.app") >= 0 && htmlDef.indexOf("Checked ") === -1 && htmlDef.indexOf("not affected") === -1);
     ok("maint: favicon = logo real · sin tono amarillo", html.indexOf('rel="icon" type="image/png" href="/assets/mark.png"') >= 0 && html.toLowerCase().indexOf("d4a017") === -1);
     ok("maint: /cfw y /forge → 503", (await fetch(BASE + "/cfw", {
       headers: {
@@ -2685,7 +2685,7 @@ async function closeWin(dom, label) {
       }
     });
     const tRoot = await rRoot.text();
-    ok("landing raíz: pública (minimal: trio + flota + acceso 30s + License soon + vxfw + Studio CTA)", rRoot.status === 200 && tRoot.indexOf("Open AppyHacking Tuning") >= 0 && tRoot.indexOf("Open AppyHacking BLE Studio") >= 0 && tRoot.indexOf("https://vexora.printspace.at/") >= 0 && tRoot.indexOf("VXFW") >= 0 && tRoot.indexOf("screen colors") >= 0 && tRoot.indexOf("F3 PRO") >= 0 && tRoot.indexOf("Coming soon") >= 0 && tRoot.indexOf("discord.gg/vxfw") >= 0);
+    ok("landing raíz: pública (minimal: trio + flota + acceso 30s + License soon + vxfw + Studio CTA)", rRoot.status === 200 && tRoot.indexOf("Open AppyHacking Tuning") >= 0 && tRoot.indexOf("Open AppyHacking BLE Studio") >= 0 && tRoot.indexOf("https://vexora.printspace.at/") >= 0 && tRoot.indexOf("VXFW") >= 0 && tRoot.indexOf("screen colors") >= 0 && tRoot.indexOf("F3 PRO") >= 0 && tRoot.indexOf("Coming soon") >= 0 && tRoot.indexOf("discord.gg/sGggH3VpN") >= 0);
     const rAppH = await fetch(BASE + "/app", {
       headers: {
         Accept: "text/html"

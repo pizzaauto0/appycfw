@@ -1,7 +1,7 @@
 # AppyHacking
 
 > ⚠️ **ARCHIVED · READ-ONLY** — AppyHacking is no longer maintained and will not receive further updates.
-> The original instance (`vexorium.pages.dev`) has been shut down.
+> The original instance (`appyhacking-app.netlify.app`) has been shut down.
 > **Founder & sole author: [ignition](https://github.com/ignition) — nobody else.**
 > The code is released as open source so the community can keep it alive if it wants to.
 

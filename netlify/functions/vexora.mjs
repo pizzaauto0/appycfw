@@ -9,7 +9,7 @@ import { makeAssets } from "../lib/assets.mjs";
 const ENV_NAMES = [
   "ADMIN_PASSWORD", "BOT_SECRET", "DISCORD_CLIENT_ID", "DISCORD_CLIENT_SECRET",
   "SUPPORT_GUILD_ID", "SUPPORT_ROLE_ID", "FOUNDER_ROLE_ID", "RESEND_API_KEY",
-  "GROQ_API_KEY", "MAIL_FROM"
+  "GROQ_API_KEY", "MAIL_FROM", "ACCESS_VERIFY_URL"
 ];
 
 function readEnv(name) {
