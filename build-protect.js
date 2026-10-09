@@ -26,7 +26,6 @@ const OBFUSCATE = [
   "assets/flasher.js", "assets/sim.js", "assets/live.js",
   "assets/app.js", "assets/extra.js", "assets/polish.js", "assets/tire.js",
   "cfw/assets/cfw.js",
-  "forge/assets/zip3.js", "forge/assets/app.js",
 ];
 
 // Worker del servidor (v1.8.0): server/worker.js -> protected/_worker.js.
@@ -138,7 +137,7 @@ async function minifyInlineHtml(html) {
   console.log("assets   protected/.assetsignore (_worker.js excluido de assets)");
 
   // HTML: comentarios fuera + inline minificado
-  for (const rel of ["index.html", "cfw/index.html", "forge/index.html", "404.html", "admin.html"]) {
+  for (const rel of ["index.html", "cfw/index.html", "404.html", "admin.html"]) {
     const p = path.join(DST, rel);
     let h = fs.readFileSync(p, "utf8");
     h = await minifyInlineHtml(h);
