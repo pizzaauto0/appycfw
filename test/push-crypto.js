@@ -15,7 +15,7 @@ function ok(name, cond, extra) {
 }
 
 (async () => {
-  console.log("VEXORA push-crypto unit");
+  console.log("APPYHACKING push-crypto unit");
   const src = fs.readFileSync(__dirname + "/../server/worker.js", "utf8");
   const a = src.indexOf("const PUSH_GONE");
   const b = src.indexOf("/* ================= fin Web Push =================");
@@ -58,7 +58,7 @@ function ok(name, cond, extra) {
   const subPubB64u = b64u(Buffer.from(await crypto.subtle.exportKey("raw", subKp.publicKey)));
   const authB64u = b64u(crypto.getRandomValues(new Uint8Array(16)));
   const MSG = JSON.stringify({
-    title: "Vexora Support",
+    title: "AppyHacking Support",
     body: "You still have an open chat with support",
     url: "/",
     tag: "vexora-chat-7"

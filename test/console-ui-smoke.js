@@ -42,7 +42,7 @@ function forgeToken(name) {
 const countText = (dom, sel, re) => Array.from(dom.window.document.querySelectorAll(sel)).filter(n => re.test(n.textContent)).length;
 
 (async () => {
-  console.log("VEXORA support console UI smoke · " + BASE);
+  console.log("APPYHACKING support console UI smoke · " + BASE);
   for (let i = 0; i < 40; i++) {
     try {
       const h = await fetch(BASE + "/api/health");

@@ -100,7 +100,7 @@
         if (fwOk) {
           const cfw = !!(window.VEXORA && VEXORA.isMcu && VEXORA.isMcu(fw));
           const m = S.list.findIndex(b => String(b.v) === fw);
-          noteTxt = cfw ? t("wheelCfwWarn", "Your scooter runs Vexora CFW — this flash returns the motor to stock tuning.") : m >= 0 ? t("wheelMatched", "Matched to your scooter — MCU {v}").replace("{v}", fw) : t("wheelNoMatch", "Your scooter runs MCU {v} — using base {base}.").replace("{v}", fw).replace("{base}", String((S.list[idx] || {}).v || ""));
+          noteTxt = cfw ? t("wheelCfwWarn", "Your scooter runs AppyHacking CFW — this flash returns the motor to stock tuning.") : m >= 0 ? t("wheelMatched", "Matched to your scooter — MCU {v}").replace("{v}", fw) : t("wheelNoMatch", "Your scooter runs MCU {v} — using base {base}.").replace("{v}", fw).replace("{base}", String((S.list[idx] || {}).v || ""));
         }
         bn.textContent = noteTxt;
       }

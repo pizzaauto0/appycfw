@@ -1,6 +1,6 @@
 # Architecture
 
-A map of how Vexora works under the hood, for whoever forks it.
+A map of how AppyHacking works under the hood, for whoever forks it.
 
 ## Request flow (production)
 

@@ -31,7 +31,7 @@ function ok(cond, name, extra) {
   ok(idx.includes("gdprWrap") && !idx.includes("vex.gdpr.notice.v1"), "aviso a TODOS en cada apertura (sin localStorage)");
   ok(/IP addresses/.test(idx) && /without showing a privacy\/cookie consent/.test(idx), "explica el porqué: IPs sin consentimiento");
   ok(/100dvh/.test(idx) && /overflow-y:\s*auto/.test(idx) && /orientation:landscape/.test(idx.replace(/\s+/g, "")), "UI a prueba de rotación (dvh + scroll + landscape)");
-  ok(/took Vexora offline/.test(idx) && idx.includes("GDPR"), "cuenta lo ocurrido (apagón + GDPR)");
+  ok(/took AppyHacking offline/.test(idx) && idx.includes("GDPR"), "cuenta lo ocurrido (apagón + GDPR)");
   ok(idx.includes('id="gdprAll"') && idx.includes('id="gdprMin"') && /Only essential/.test(idx) && /Allow all/.test(idx), "elección Allow all / Only essential en el aviso");
   ok(idx.includes('removeItem("vexora.consent")') && idx.includes("vex.gdpr.ack.v2"), "consentimiento anterior ANULADO (re-elección forzosa una vez)");
   ok(idx.includes("window.Consent.set") || idx.includes("Consent.set"), "elección conectada a la capa real de consentimiento (storage bloqueado de verdad)");

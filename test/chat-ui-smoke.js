@@ -31,7 +31,7 @@ async function wait(fn, ms, label) {
 }
 
 (async () => {
-  console.log("VEXORA live chat UI smoke · " + BASE);
+  console.log("APPYHACKING live chat UI smoke · " + BASE);
   for (let i = 0; i < 40; i++) {
     try {
       const h = await fetch(BASE + "/api/health");

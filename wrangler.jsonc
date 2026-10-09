@@ -1,5 +1,5 @@
 {
-  // Vexora 1.9.1 · Cloudflare (proyecto «vexorium» -> vexorium.pages.dev)
+  // AppyHacking 1.9.1 · Cloudflare (proyecto «vexorium» -> vexorium.pages.dev)
   //
   // ⚠️ DESPLIEGUE PRINCIPAL: ZIP por el dashboard de PAGES
   //    (vexorium-pages-upload.zip = contenido de protected/, con _worker.js
@@ -13,7 +13,7 @@
   //   y /admin/api/*, y bloquea /cfw/bases/ al público.
   "$schema": "node_modules/wrangler/config-schema.json",
 
-  // ⚠️ Marca del sitio: Vexora. El PROYECTO se llama «vexorium» a propósito:
+  // ⚠️ Marca del sitio: AppyHacking. El PROYECTO se llama «vexorium» a propósito:
   // define el link público (vexorium.pages.dev / vexorium.workers.dev).
   "name": "vexorium",
 

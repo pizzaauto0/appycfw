@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="robots" content="noindex" />
-<title>Vexora Community</title>
+<title>AppyHacking Community</title>
 <link rel="stylesheet" href="/assets/app.css?v=1670" />
 <link rel="icon" href="/icons/icon.svg" type="image/svg+xml" />
 <style>
@@ -319,7 +319,7 @@
 
   <main class="c-main">
     <div class="c-note" id="cSigninNote" hidden>
-      <span data-i18n="commSignin">Sign in with your Vexora account to post, like or comment.</span>
+      <span data-i18n="commSignin">Sign in with your AppyHacking account to post, like or comment.</span>
       <a href="/" data-i18n="commSigninBtn">Sign in</a>
     </div>
 
@@ -463,7 +463,7 @@
   });
   function requireAuth() {
     if (me && tok) return true;
-    toast(T("commLoginNeed", "Sign in first — open Vexora"));
+    toast(T("commLoginNeed", "Sign in first — open AppyHacking"));
     return false;
   }
   let feedTab = "foryou";
@@ -476,7 +476,7 @@
       $("#cSigninNote").hidden = false;
       $("#cFeedList").innerHTML = "";
       $("#cFeedEmpty").hidden = false;
-      $("#cFeedEmpty").textContent = T("commSignin", "Sign in with your Vexora account to post, like or comment.");
+      $("#cFeedEmpty").textContent = T("commSignin", "Sign in with your AppyHacking account to post, like or comment.");
       return;
     }
     feedBoot(true);
@@ -728,7 +728,7 @@
     openId = Number(id);
     replying = 0;
     replyingName = "";
-    box.innerHTML = '<div class="c-mgrab"></div><div class="c-mhead"><b id="cCmtHead">' + esc(T("commCmts", "Comments")) + '</b><button type="button" class="c-mclose" id="cCmtClose" aria-label="Close">✕</button></div><div class="c-cmt-list" id="cCmtList"><div class="c-empty">' + esc(T("commLoading", "Loading…")) + "</div></div>" + (me && tok ? '<div class="c-cmt-row"><input class="c-input" id="cCmtIn" maxlength="280" placeholder="' + esc(T("commCommentPh", "Add a comment…")) + '" /><button type="button" class="btn sm" id="cCmtGo">' + esc(T("commSend", "Send")) + "</button></div>" + '<div class="c-err" id="cCmtErr"></div><div class="c-replybar" id="cReplyBar" hidden><span>' + esc(T("commReplyTo", "Replying to")) + ' <b id="cReplyName"></b></span><button type="button" id="cReplyX">✕</button></div>' + '<div class="c-chint">' + esc(T("commHoldDel", "Hold your comment to delete it")) + "</div>" : '<div class="c-empty">' + esc(T("commSignin", "Sign in with your Vexora account to post, like or comment.")) + "</div>");
+    box.innerHTML = '<div class="c-mgrab"></div><div class="c-mhead"><b id="cCmtHead">' + esc(T("commCmts", "Comments")) + '</b><button type="button" class="c-mclose" id="cCmtClose" aria-label="Close">✕</button></div><div class="c-cmt-list" id="cCmtList"><div class="c-empty">' + esc(T("commLoading", "Loading…")) + "</div></div>" + (me && tok ? '<div class="c-cmt-row"><input class="c-input" id="cCmtIn" maxlength="280" placeholder="' + esc(T("commCommentPh", "Add a comment…")) + '" /><button type="button" class="btn sm" id="cCmtGo">' + esc(T("commSend", "Send")) + "</button></div>" + '<div class="c-err" id="cCmtErr"></div><div class="c-replybar" id="cReplyBar" hidden><span>' + esc(T("commReplyTo", "Replying to")) + ' <b id="cReplyName"></b></span><button type="button" id="cReplyX">✕</button></div>' + '<div class="c-chint">' + esc(T("commHoldDel", "Hold your comment to delete it")) + "</div>" : '<div class="c-empty">' + esc(T("commSignin", "Sign in with your AppyHacking account to post, like or comment.")) + "</div>");
     $("#cCmtClose").addEventListener("click", () => {
       modal.hidden = true;
     });
@@ -1002,7 +1002,7 @@
   async function openProfile(name) {
     const box = $("#cMeView");
     if (!name) {
-      box.innerHTML = '<div class="c-prof"><div class="c-empty">' + esc(T("commSignin", "Sign in with your Vexora account to post, like or comment.")) + '</div><a class="btn" style="width:100%;margin-top:10px" href="/">' + esc(T("commSigninBtn", "Sign in")) + "</a></div>";
+      box.innerHTML = '<div class="c-prof"><div class="c-empty">' + esc(T("commSignin", "Sign in with your AppyHacking account to post, like or comment.")) + '</div><a class="btn" style="width:100%;margin-top:10px" href="/">' + esc(T("commSigninBtn", "Sign in")) + "</a></div>";
       return;
     }
     if (!profLoaded && name === me) box.innerHTML = '<div class="c-prof"><div class="c-empty">' + esc(T("commLoading", "Loading…")) + "</div></div>";
@@ -1016,7 +1016,7 @@
     const own = p.name === me;
     const av = p.avatar ? '<img src="' + esc(p.avatar) + '" alt="" />' : esc((p.disp || p.name || "?").slice(0, 1).toUpperCase());
     const avStyle = p.color && /^#[0-9a-fA-F]{6}$/.test(p.color) ? "border-color:" + esc(p.color) : "";
-    box.innerHTML = '<div class="c-prof">' + '<div class="c-prof-top"><span class="c-av" style="' + avStyle + '">' + av + "</span>" + '<div style="flex:1;min-width:0"><b style="font-size:16px">' + esc(p.disp || p.name) + '</b><div style="color:var(--muted);font-size:12.5px">@' + esc(p.name) + "</div></div>" + '<div class="c-stats"><div><b>' + (p.posts || []).length + "</b><span>" + esc(T("commPosts", "Posts")) + "</span></div>" + '<button type="button" class="c-stat" data-soc="fers"><b>' + Number(p.followers) + "</b><span>" + esc(T("commFollowers", "Followers")) + "</span></button>" + '<button type="button" class="c-stat" data-soc="fing"><b>' + Number(p.following_n) + "</b><span>" + esc(T("commFollowingT", "Following")) + "</span></button></div></div>" + (p.bio ? '<p class="c-bio"' + (p.color && /^#[0-9a-fA-F]{6}$/.test(p.color) ? ' style="color:' + esc(p.color) + '"' : "") + ">" + esc(p.bio) + "</p>" : "") + (own ? '<div class="c-row"><button type="button" class="btn ghost sm" id="cEditGo">' + esc(T("commEdit", "Edit profile")) + '</button><a class="btn ghost sm" href="/">' + esc(T("commOpenVex", "Open Vexora")) + "</a></div>" + '<div class="c-edit" id="cEditBox" hidden>' + '<div class="c-avatar-row"><span class="c-av" id="cEditAv">' + av + '</span><button type="button" class="btn ghost sm" id="cAvPick">' + esc(T("commAvatar", "Avatar")) + '</button><input type="file" id="cAvFile" accept="image/png,image/jpeg" hidden /><input type="hidden" id="cAvData" /></div>' + '<label for="cBioIn">' + esc(T("commBio", "Bio")) + '</label><textarea id="cBioIn" rows="2" maxlength="160">' + esc(p.bio || "") + "</textarea>" + '<label for="cColIn">' + esc(T("commColor", "Accent color")) + '</label><input type="color" id="cColIn" value="' + esc(/^#[0-9a-fA-F]{6}$/.test(p.color || "") ? p.color : "#31c48d") + '" />' + '<div class="c-err" id="cProfErr"></div><div class="c-okmsg" id="cProfOk"></div>' + '<button type="button" class="btn" id="cProfSave" style="width:100%">' + esc(T("commSave", "Save")) + "</button></div>" : '<div class="c-row"><button type="button" class="c-follow' + (p.following ? " is-on" : "") + '" id="cProfFol">' + esc(p.following ? T("commFollowing", "Following") : T("commFollow", "Follow")) + "</button></div>") + '<div class="c-grid">' + (p.posts || []).map(x => '<button type="button" data-open="' + x.id + '"><img src="' + esc(x.pic) + '" alt="" loading="lazy" /><span class="c-gl"><svg aria-hidden="true"><use href="#c-i-heart"></use></svg>' + Number(x.likes) + "</span></button>").join("") + (!(p.posts || []).length ? '<div class="c-empty" style="grid-column:1/-1">' + esc(T("commEmpty", "Nothing here yet")) + "</div>" : "") + "</div></div>";
+    box.innerHTML = '<div class="c-prof">' + '<div class="c-prof-top"><span class="c-av" style="' + avStyle + '">' + av + "</span>" + '<div style="flex:1;min-width:0"><b style="font-size:16px">' + esc(p.disp || p.name) + '</b><div style="color:var(--muted);font-size:12.5px">@' + esc(p.name) + "</div></div>" + '<div class="c-stats"><div><b>' + (p.posts || []).length + "</b><span>" + esc(T("commPosts", "Posts")) + "</span></div>" + '<button type="button" class="c-stat" data-soc="fers"><b>' + Number(p.followers) + "</b><span>" + esc(T("commFollowers", "Followers")) + "</span></button>" + '<button type="button" class="c-stat" data-soc="fing"><b>' + Number(p.following_n) + "</b><span>" + esc(T("commFollowingT", "Following")) + "</span></button></div></div>" + (p.bio ? '<p class="c-bio"' + (p.color && /^#[0-9a-fA-F]{6}$/.test(p.color) ? ' style="color:' + esc(p.color) + '"' : "") + ">" + esc(p.bio) + "</p>" : "") + (own ? '<div class="c-row"><button type="button" class="btn ghost sm" id="cEditGo">' + esc(T("commEdit", "Edit profile")) + '</button><a class="btn ghost sm" href="/">' + esc(T("commOpenVex", "Open AppyHacking")) + "</a></div>" + '<div class="c-edit" id="cEditBox" hidden>' + '<div class="c-avatar-row"><span class="c-av" id="cEditAv">' + av + '</span><button type="button" class="btn ghost sm" id="cAvPick">' + esc(T("commAvatar", "Avatar")) + '</button><input type="file" id="cAvFile" accept="image/png,image/jpeg" hidden /><input type="hidden" id="cAvData" /></div>' + '<label for="cBioIn">' + esc(T("commBio", "Bio")) + '</label><textarea id="cBioIn" rows="2" maxlength="160">' + esc(p.bio || "") + "</textarea>" + '<label for="cColIn">' + esc(T("commColor", "Accent color")) + '</label><input type="color" id="cColIn" value="' + esc(/^#[0-9a-fA-F]{6}$/.test(p.color || "") ? p.color : "#31c48d") + '" />' + '<div class="c-err" id="cProfErr"></div><div class="c-okmsg" id="cProfOk"></div>' + '<button type="button" class="btn" id="cProfSave" style="width:100%">' + esc(T("commSave", "Save")) + "</button></div>" : '<div class="c-row"><button type="button" class="c-follow' + (p.following ? " is-on" : "") + '" id="cProfFol">' + esc(p.following ? T("commFollowing", "Following") : T("commFollow", "Follow")) + "</button></div>") + '<div class="c-grid">' + (p.posts || []).map(x => '<button type="button" data-open="' + x.id + '"><img src="' + esc(x.pic) + '" alt="" loading="lazy" /><span class="c-gl"><svg aria-hidden="true"><use href="#c-i-heart"></use></svg>' + Number(x.likes) + "</span></button>").join("") + (!(p.posts || []).length ? '<div class="c-empty" style="grid-column:1/-1">' + esc(T("commEmpty", "Nothing here yet")) + "</div>" : "") + "</div></div>";
     profLoaded = true;
     const eg = $("#cEditGo");
     if (eg) eg.addEventListener("click", () => {

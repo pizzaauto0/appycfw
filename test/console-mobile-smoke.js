@@ -40,7 +40,7 @@ function forgeToken(name) {
 }
 
 (async () => {
-  console.log("VEXORA console MOBILE smoke · " + BASE);
+  console.log("APPYHACKING console MOBILE smoke · " + BASE);
   for (let i = 0; i < 40; i++) {
     try {
       const h = await fetch(BASE + "/api/health");

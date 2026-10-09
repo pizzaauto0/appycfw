@@ -17,12 +17,12 @@ self.addEventListener("push", e => {
   } catch (err) {
     try {
       d = {
-        title: "Vexora",
+        title: "AppyHacking",
         body: e.data.text()
       };
     } catch (err2) {}
   }
-  e.waitUntil(self.registration.showNotification(d.title || "Vexora Support", {
+  e.waitUntil(self.registration.showNotification(d.title || "AppyHacking Support", {
     body: d.body || "",
     icon: "/assets/icon-192.png",
     badge: "/assets/icon-192.png",

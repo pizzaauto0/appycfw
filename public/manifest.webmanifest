@@ -1,7 +1,7 @@
 {
-  "name": "Vexora",
-  "short_name": "Vexora",
-  "description": "Vexora · Max G3 · ZT3 Pro · F3 · GT3 · GT3 Pro",
+  "name": "AppyHacking",
+  "short_name": "AppyHacking",
+  "description": "AppyHacking · Max G3 · ZT3 Pro · F3 · GT3 · GT3 Pro",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

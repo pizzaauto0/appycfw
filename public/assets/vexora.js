@@ -1,5 +1,5 @@
 window.VEXORA = {
-  name: "Vexora CFW",
+  name: "AppyHacking CFW",
   vcu: "1.1.9",
   mcu: "1.1.9",
   app: "2.9.0",

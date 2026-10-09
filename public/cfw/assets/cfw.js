@@ -1,4 +1,4 @@
-/* Vexora CFW — client UI (v1.8.0).
+/* AppyHacking CFW — client UI (v1.8.0).
    The firmware image is BUILT ON THE SERVER (POST /api/cfw/build):
    this file only collects the UI parameters (sliders, presets, model,
    detected versions), calls the API and hands the encrypted image to the
@@ -123,7 +123,7 @@
       const model = modelId();
       if (el) {
         if (model !== "g3" && model !== "f3pro") el.textContent = "";
-        else el.textContent = "Vexora Ext · Standard + Tuning profiles · secret combo";
+        else el.textContent = "AppyHacking Ext · Standard + Tuning profiles · secret combo";
       }
       const showU = model === "g3" || model === "f3" || model === "f3pro" || model === "zt3";
       if (rn) {

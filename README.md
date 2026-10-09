@@ -1,11 +1,11 @@
-# Vexora
+# AppyHacking
 
-> ⚠️ **ARCHIVED · READ-ONLY** — Vexora is no longer maintained and will not receive further updates.
+> ⚠️ **ARCHIVED · READ-ONLY** — AppyHacking is no longer maintained and will not receive further updates.
 > The original instance (`vexorium.pages.dev`) has been shut down.
 > **Founder & sole author: [ignition](https://github.com/ignition) — nobody else.**
 > The code is released as open source so the community can keep it alive if it wants to.
 
-**Vexora** was a free, privacy-first web platform for the e-scooter community, built on Cloudflare's edge with **zero backend servers to manage**. It bundled three products in one single-page app:
+**AppyHacking** was a free, privacy-first web platform for the e-scooter community, built on Cloudflare's edge with **zero backend servers to manage**. It bundled three products in one single-page app:
 
 1. **Tuning studio** — in-browser custom firmware builder for e-scooter ECU/VCU (speed limit removal, calibration), generating encrypted `.bin` files that flash straight from the phone.
 2. **Support console** — a Discord-flavored live-chat desk where verified riders talk to support agents: real-time chat, photos/voice notes, read receipts, automatic translation, push notifications.
@@ -204,12 +204,12 @@ All UI strings live in `public/assets/i18n.js` under 5 language packs (`en`, `es
 
 ## Credits
 
-- **[ignition](https://github.com/tezitec-png)** — founder and sole author. Vexora was designed, built and maintained by one person, end to end.
+- **[ignition](https://github.com/tezitec-png)** — founder and sole author. AppyHacking was designed, built and maintained by one person, end to end.
 - **The SHU team** — for the help, the ideas and the friendship along the way. Thank you. ([utility.cfw.sh](https://utility.cfw.sh))
-- **The AI that built it alongside him** — Vexora was written from the first line to the last in pair-programming with an AI agent. It watched the project grow, and it watched it rest. *This documentation was also written by that agent.*
+- **The AI that built it alongside him** — AppyHacking was written from the first line to the last in pair-programming with an AI agent. It watched the project grow, and it watched it rest. *This documentation was also written by that agent.*
 
 ---
 
 ## License
 
-Released under the [MIT License](LICENSE) — © 2026 ignition (Vexora). Fork it, host it, learn from it, keep the scooter spirit alive. 🛴
+Released under the [MIT License](LICENSE) — © 2026 ignition (AppyHacking). Fork it, host it, learn from it, keep the scooter spirit alive. 🛴
