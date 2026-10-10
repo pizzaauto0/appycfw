@@ -53,6 +53,18 @@
     .cap-counters b { color: var(--text); font-variant-numeric: tabular-nums; margin-left: 6px; }
 
     
+    .rev-card { border-color: rgba(111, 220, 170, .28); background: radial-gradient(90% 140% at 100% -20%, rgba(111, 220, 170, .10), transparent 60%), var(--panel); }
+    .rev-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 14px; flex-wrap: wrap; }
+    .rev-big { font-size: 38px; font-weight: 800; letter-spacing: -.02em; font-variant-numeric: tabular-nums; line-height: 1; }
+    .rev-big small { font-size: 16px; color: var(--muted); font-weight: 700; margin-left: 4px; }
+    .rev-badge { display: inline-block; padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: 800; letter-spacing: .6px; text-transform: uppercase; color: #0b100e; background: #6fdcaa; }
+    .rev-bars { display: flex; align-items: flex-end; gap: 3px; height: 70px; margin: 16px 0 4px; }
+    .rev-bars i { flex: 1; min-width: 3px; border-radius: 4px 4px 0 0; background: rgba(111, 220, 170, .55); min-height: 2px; }
+    .rev-bars i.zero { background: var(--line); }
+    .rev-axis { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); }
+    .rev-packs { margin-top: 12px; display: grid; gap: 6px; }
+    .rev-packs div { display: flex; justify-content: space-between; font-size: 13px; padding: 6px 10px; border-radius: 10px; background: var(--panel-2, rgba(255,255,255,.03)); }
+    .rev-packs span { color: var(--muted); }
     .ov-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 14px 0 4px; }
     @media (max-width: 820px) { .ov-grid { grid-template-columns: 1fr; } }
     .ov-card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; }
@@ -216,6 +228,37 @@
           <h1>Overview</h1>
           <p class="ph-sub">Traffic, builds and activity · refreshes every 15 s</p>
         </div>
+      </div>
+
+      <div class="card rev-card" id="revCard">
+        <div class="rev-head">
+          <div>
+            <h3 style="margin:0 0 8px">Revenue <span class="rev-badge">Confirmed only</span></h3>
+            <p class="rev-big"><span id="revTotal">—</span><small>EUR</small></p>
+            <p class="hint" id="revNote">Loading…</p>
+          </div>
+        </div>
+        <div class="ov-grid">
+          <div class="ov-card">
+            <h4>Today</h4>
+            <div class="ov-row"><span>Revenue</span><b id="revToday">—</b></div>
+            <div class="ov-row"><span>Orders</span><b id="revTodayN">—</b></div>
+          </div>
+          <div class="ov-card">
+            <h4>Last 7 days</h4>
+            <div class="ov-row"><span>Revenue</span><b id="rev7">—</b></div>
+            <div class="ov-row"><span>Orders</span><b id="rev7N">—</b></div>
+          </div>
+          <div class="ov-card">
+            <h4>Last 30 days</h4>
+            <div class="ov-row"><span>Revenue</span><b id="rev30">—</b></div>
+            <div class="ov-row"><span>Orders</span><b id="rev30N">—</b></div>
+          </div>
+        </div>
+        <div class="rev-bars" id="revBars"></div>
+        <div class="rev-axis"><span id="revFrom">—</span><span id="revTo">—</span></div>
+        <div class="rev-packs" id="revPacks"></div>
+        <p class="hint" style="margin-top:12px">Only paid orders whose code was delivered count. Open, closed and hand-made codes are excluded.</p>
       </div>
 
       <div class="card cap-card">
@@ -1080,7 +1123,48 @@
   $("#btnSvPurge90").addEventListener("click", function() {
     purgeSupport(90);
   });
+  var revAt = 0;
+  function eur(n) {
+    return (Number(n) || 0).toLocaleString("de-DE", { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+  }
+  function loadRevenue() {
+    if (Date.now() - revAt < 60000) return;
+    revAt = Date.now();
+    var note = $("#revNote");
+    api("/admin/api/revenue").then(function(r) {
+      var b = r && r.body;
+      if (!b || b.ok !== true) {
+        if (note) note.textContent = b && b.error === "not_configured" ? "Not connected: set FEEDBACK_SECRET (same value as APP_FEEDBACK_SECRET on the shop access site)." : "Could not load revenue" + (b && b.error ? " (" + b.error + ")" : "") + ".";
+        revAt = 0;
+        return;
+      }
+      $("#revTotal").textContent = eur(b.total.revenue);
+      $("#revToday").textContent = eur(b.today.revenue) + " €";
+      $("#revTodayN").textContent = b.today.orders;
+      $("#rev7").textContent = eur(b.last7.revenue) + " €";
+      $("#rev7N").textContent = b.last7.orders;
+      $("#rev30").textContent = eur(b.last30.revenue) + " €";
+      $("#rev30N").textContent = b.last30.orders;
+      if (note) note.textContent = b.total.orders + " confirmed orders" + (b.since ? " since " + new Date(b.since).toLocaleDateString("de-DE") : " in total") + (b.pendingOrders ? " · " + b.pendingOrders + " open (not counted)" : "");
+      var days = b.days || [], max = 0, bars = $("#revBars");
+      days.forEach(function(d) { if (d.revenue > max) max = d.revenue; });
+      if (bars) bars.innerHTML = days.map(function(d) {
+        var h = max ? Math.max(3, Math.round(d.revenue / max * 100)) : 3;
+        return '<i class="' + (d.revenue ? "" : "zero") + '" style="height:' + h + '%" title="' + esc(d.date) + ': ' + eur(d.revenue) + ' €"></i>';
+      }).join("");
+      if (days.length) { $("#revFrom").textContent = days[0].date; $("#revTo").textContent = days[days.length - 1].date; }
+      var packs = Object.keys(b.byPack || {}).sort(function(a, c) { return b.byPack[c].revenue - b.byPack[a].revenue; });
+      var pk = $("#revPacks");
+      if (pk) pk.innerHTML = packs.map(function(n) {
+        return "<div><b>" + esc(n) + "</b><span>" + b.byPack[n].orders + " × · " + eur(b.byPack[n].revenue) + " €</span></div>";
+      }).join("");
+    }).catch(function() {
+      if (note) note.textContent = "Could not load revenue.";
+      revAt = 0;
+    });
+  }
   function loadStats() {
+    loadRevenue();
     api("/admin/api/stats").then(function(r) {
       if (r.status === 401) {
         logout();

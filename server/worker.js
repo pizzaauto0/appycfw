@@ -1468,6 +1468,32 @@ const VexoraServer = (() => {
       }
     }
     if (path.startsWith("/admin/api/support/")) return await handleSupportApi(request, env, url, ctx);
+    if (path === "/admin/api/revenue" && request.method === "GET") {
+      const secretRv = env && env.FEEDBACK_SECRET || "";
+      if (!secretRv) return json({
+        ok: false,
+        error: "not_configured"
+      });
+      try {
+        const rv = await fetch(env.REVENUE_URL || "https://appycodeee.netlify.app/api/app-revenue", {
+          headers: {
+            "x-app-secret": secretRv
+          },
+          signal: AbortSignal.timeout(8e3)
+        });
+        const jv = await rv.json().catch(() => null);
+        if (!rv.ok || !jv || jv.ok !== true) return json({
+          ok: false,
+          error: jv && jv.error || "upstream " + rv.status
+        });
+        return json(jv);
+      } catch (e) {
+        return json({
+          ok: false,
+          error: "unreachable"
+        });
+      }
+    }
     if (path === "/admin/api/riders" && request.method === "GET") {
       if (!env || !env.DB) return json({
         ok: true,
