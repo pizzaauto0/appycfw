@@ -82,7 +82,7 @@ const countText = (dom, sel, re) => Array.from(dom.window.document.querySelector
   ok("modal de tags OCULTO al entrar (fix display)", $("#tagmodal").hidden === true);
   ok("regla .modalbg[hidden] presente en el CSS", Array.from(window.document.querySelectorAll("style")).some(s => /modalbg\[hidden\]/.test(s.textContent)));
   ok("CSS [hidden]{display:none!important} global", Array.from(window.document.querySelectorAll("style")).some(s => /\[hidden\]\s*\{\s*display:\s*none\s*!important/.test(s.textContent)));
-  ok("login: enlace Privacidad + contacto legal (tezitec)", !!window.document.querySelector('#login a[href="/privacy"]') && !!window.document.querySelector('#login a[href^="mailto:login.vexora@gmail.com"]'));
+  ok("login: enlace Privacidad + contacto legal (tezitec)", !!window.document.querySelector('#login a[href="/privacy"]') && !!window.document.querySelector('#login a[href^="https://discord.gg/sGggH3VpN"]'));
   ok("login: logo mark.png sin fondo + SVG Discord oficial", Array.from(window.document.querySelectorAll("style")).some(s => /mark\.png/.test(s.textContent)) && !!window.document.querySelector("#btnDiscord svg.dsc"));
   ok("PC: columna de listas 330px + pane en la pestaña Chats", !!window.document.getElementById("chatListCol") && window.document.getElementById("chatListCol").contains(window.document.getElementById("listWait")) && window.document.getElementById("tpChats").contains(window.document.getElementById("pane")));
   ok("PC: #tpChats en flex (listas + chat ancho)", Array.from(window.document.querySelectorAll("style")).some(s => /#tpChats\.on\s*\{[^}]*display:\s*flex/.test(s.textContent)));
