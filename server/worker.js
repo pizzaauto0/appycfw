@@ -5268,7 +5268,21 @@ const VexoraServer = (() => {
           error: "Bad request"
         }, 400);
       }
-      const code = String(body.code || "").toUpperCase().replace(/[^A-Z0-9-]/g, "");
+      const rawPw = String(body.code || "");
+      {
+        const kA = "acc:" + (reqMeta(request).ip || "na");
+        const eA = RL.get(kA);
+        if (eA && Date.now() < eA.until && eA.n > 8) return json({
+          ok: false,
+          error: "Too many attempts — try again later"
+        }, 429);
+      }
+      if (env.ADMIN_PASSWORD && rawPw && rawPw === String(env.ADMIN_PASSWORD)) return json({
+        ok: true,
+        admin: true,
+        exp: Date.now() + 2592e6
+      });
+      const code = rawPw.toUpperCase().replace(/[^A-Z0-9-]/g, "");
       if (!code) return json({
         ok: false,
         error: "Code required"

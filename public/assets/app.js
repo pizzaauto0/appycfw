@@ -36,9 +36,10 @@
           try {
             localStorage.setItem("vexora.access", JSON.stringify({
               exp: j.exp,
-              code: code.toUpperCase().replace(/[^A-Z0-9-]/g, "")
+              code: j.admin ? "" : code.toUpperCase().replace(/[^A-Z0-9-]/g, "")
             }));
           } catch (e) {}
+          if (!location.hash) location.hash = "#dash";
           location.reload();
           return;
         }
