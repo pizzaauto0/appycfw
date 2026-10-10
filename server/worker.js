@@ -5778,17 +5778,21 @@ const VexoraServer = (() => {
   const BAN_HTML = `<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="utf-8" />\n<meta name="viewport" content="width=device-width, initial-scale=1" />\n<title>AppyHacking · Access restricted</title>\n<style>\n  body { margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center; background:#070708; color:#f4f4f5; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }\n  main { max-width: 430px; text-align:center; padding: 32px 24px; }\n  .mk { width:56px; height:56px; margin:0 auto 16px; border-radius:14px; background:#161618; border:1px solid #323238; display:flex; align-items:center; justify-content:center; font-size:26px; font-weight:800; }\n  h1 { font-size:22px; margin:0 0 10px; letter-spacing:.4px; }\n  p { color:#9a9aa3; font-size:14.5px; line-height:1.65; margin:0 0 6px; }\n  a.btn { display:inline-block; margin-top:18px; padding:11px 22px; border-radius:12px; background:#f4f4f5; color:#070708; font-weight:700; text-decoration:none; font-size:14px; }\n</style>\n</head>\n<body>\n<main>\n  <div class="mk">V</div>\n  <h1>Access restricted</h1>\n  <p>You are banned from AppyHacking.</p>\n  <p>To be unbanned, contact the AppyHacking staff.</p>\n  <a class="btn" href="https://discord.gg/sGggH3VpN" rel="noopener">Contact staff &middot; Discord</a>\n</main>\n</body>\n</html>`;
   const MAINT_HTML = `<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n<title>AppyHacking &middot; Maintenance</title>\n<meta name="robots" content="noindex">\n<link rel="icon" type="image/png" href="/assets/mark.png">\n<link rel="apple-touch-icon" href="/assets/mark.png">\n<style>\n:root{--bg:#070708;--text:#f4f4f5;--muted:#9a9aa3;--dim:#6f6f78;--faint:#26262b;--sans:Montserrat,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}\n*{box-sizing:border-box}\nhtml{color-scheme:dark;background:var(--bg)}\nbody{margin:0;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;background:radial-gradient(60% 42% at 50% 0%,rgba(244,244,245,.05),transparent 70%),var(--bg);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased;text-align:center}\nmain{max-width:420px}\n.mark{width:64px;height:64px;margin:0 auto 22px;display:block;filter:drop-shadow(0 0 30px rgba(244,244,245,.14))}\n.word{margin:0 0 58px;font-size:13px;font-weight:600;letter-spacing:.42em;text-indent:.42em;color:var(--text)}\nh1{margin:0 0 14px;font-size:clamp(26px,6vw,34px);font-weight:600;letter-spacing:.01em}\np.sub{margin:0;color:var(--muted);font-size:clamp(14px,3.8vw,15.5px);line-height:1.6}\n.line{position:relative;width:180px;height:1px;margin:46px auto 0;background:var(--faint);overflow:hidden}\n.line::after{content:"";position:absolute;top:0;bottom:0;width:56px;background:linear-gradient(90deg,transparent,#f4f4f5,transparent);opacity:.75;animation:sweep 2.4s cubic-bezier(.45,0,.55,1) infinite}\n@keyframes sweep{0%{transform:translateX(-60px)}100%{transform:translateX(184px)}}\nfooter{margin-top:46px;font-size:12px;letter-spacing:.08em;color:var(--dim)}\nfooter a{color:var(--muted);text-decoration:none;border-bottom:1px solid transparent;padding-bottom:1px;transition:color .2s,border-color .2s}\nfooter a:hover{color:var(--text);border-color:var(--text)}\n@media (prefers-reduced-motion:reduce){.line::after{animation:none}}\n</style>\n</head>\n<body>\n<main>\n  <img class="mark" src="/assets/mark.png" alt="AppyHacking">\n  <p class="word">APPYHACKING</p>\n  <h1>We&rsquo;ll be back soon.</h1>\n  <p class="sub">__MAINT_REASON__</p>\n  <div class="line" aria-hidden="true"></div>\n</main>\n<footer>appyhacking-app.netlify.app &middot; <a href="https://discord.gg/sGggH3VpN" rel="noopener">Discord</a> &middot; <a href="/founder/oauth/start" rel="nofollow">Founder login</a></footer>\n<script>\n(function(){\n  setInterval(function(){\n    fetch("/api/health",{cache:"no-store"}).then(function(r){return r.json()}).then(function(j){\n      if(j&&!j.maint)location.replace("/");\n    }).catch(function(){});\n  },10000);\n})();\n<\/script>\n</body>\n</html>`;
   // Leitet das Feedback an die Zugangsseite weiter: dort landet es im Discord
-  // (zur Freigabe) und erscheint nach Freigabe auf den Seiten. Nur mit gueltigem
-  // Shop-Code (CST-...); Fehler duerfen das Absenden nie blockieren.
+  // (zur Freigabe) und erscheint nach Freigabe auf den Seiten. Mit gueltigem
+  // Shop-Code (CST-...) oder - fuer ALLES Feedback - mit dem gemeinsamen
+  // Geheimnis FEEDBACK_SECRET. Fehler duerfen das Absenden nie blockieren.
   async function forwardFeedback(env, fb) {
-    if (!/^CST-[A-Z0-9]{4}-[A-Z0-9]{4}$/.test(fb.code)) return;
+    const secret = env && env.FEEDBACK_SECRET || "";
+    if (!secret && !/^CST-[A-Z0-9]{4}-[A-Z0-9]{4}$/.test(fb.code)) return;
     const url = env && env.FEEDBACK_FORWARD_URL || "https://appycodeee.netlify.app/api/app-feedback";
     try {
+      const h = {
+        "Content-Type": "application/json"
+      };
+      if (secret) h["x-app-secret"] = secret;
       await fetch(url, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
+        headers: h,
         body: JSON.stringify(fb),
         signal: AbortSignal.timeout(6e3)
       });

@@ -23,6 +23,7 @@ Der frühere Cloudflare-Server (`server/worker.js`) läuft hier als Netlify Func
 | `RESEND_API_KEY` | Mailversand (`test-key` = Testmodus) |
 | `GROQ_API_KEY` | KI-Übersetzung/Support (optional) |
 | `ACCESS_VERIFY_URL` | Code-Prüfung gegen die Zugangsseite (Standard `https://appycodeee.netlify.app/api/verify-access`) |
+| `FEEDBACK_SECRET` | Gemeinsames Geheimnis (gleicher Wert wie `APP_FEEDBACK_SECRET` auf der Zugangsseite): damit kommt ALLES Feedback in Discord an, nicht nur das mit Shop-Code |
 | `FEEDBACK_FORWARD_URL` | Feedback-Weiterleitung an Discord/Seite (Standard `https://appycodeee.netlify.app/api/app-feedback`) |
 
 3. Nach dem ersten Deploy: `/admin.html` öffnen, anmelden, **Maintenance ausschalten**.

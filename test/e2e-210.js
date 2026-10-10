@@ -2681,7 +2681,7 @@ async function closeWin(dom, label) {
       }
     });
     const tRoot = await rRoot.text();
-    ok("landing raíz: pública (minimal: trio + flota + acceso 30s + License soon + vxfw + Studio CTA)", rRoot.status === 200 && tRoot.indexOf("Open AppyHacking Tuning") >= 0 && tRoot.indexOf("Open AppyHacking BLE Studio") >= 0 && tRoot.indexOf("https://vexora.printspace.at/") >= 0 && tRoot.indexOf("AYFW") >= 0 && tRoot.indexOf("screen colors") >= 0 && tRoot.indexOf("F3 PRO") >= 0 && tRoot.indexOf("Coming soon") >= 0 && tRoot.indexOf("discord.gg/sGggH3VpN") >= 0);
+    ok("landing raíz: pública (minimal: trio + flota + acceso 30s + License soon + vxfw + Studio CTA)", rRoot.status === 200 && tRoot.indexOf("Open AppyHacking Tuning") >= 0 && tRoot.indexOf("printspace") === -1 && tRoot.indexOf("AYFW") >= 0 && tRoot.indexOf("F3 PRO") >= 0 && tRoot.indexOf("Coming soon") >= 0 && tRoot.indexOf("discord.gg/sGggH3VpN") >= 0);
     const rAppH = await fetch(BASE + "/app", {
       headers: {
         Accept: "text/html"
@@ -2691,7 +2691,6 @@ async function closeWin(dom, label) {
     ok("app servida en /app (gate incluido)", rAppH.status === 200 && appHtml.indexOf("accessOverlay") >= 0);
     ok("vxfw switch: 3 pestañas en el html (CFW + Motor visibles por defecto, AYFW oculta hasta el flag)", appHtml.indexOf('data-view="vxfw"') >= 0 && /data-view="vxfw" hidden/.test(appHtml) && appHtml.indexOf('data-view="cfw"') >= 0 && appHtml.indexOf('data-view="motor"') >= 0 && appHtml.indexOf('id="view-vxfw"') >= 0 && appHtml.indexOf('id="view-motor"') >= 0 && appHtml.indexOf('id="view-cfw"') >= 0);
     ok("vxfw: gate + best tune + tuning dentro de la vista", appHtml.indexOf('id="vxfwGate"') >= 0 && appHtml.indexOf('id="btnVxfwBest"') >= 0 && appHtml.indexOf('data-vxfw-lock="1"') >= 0 && appHtml.indexOf('id="panelDpc4"') >= 0 && appHtml.indexOf('id="btnVcu"') >= 0);
-    ok("vxfw: Studio link actualizado (printspace) y solo F3 Pro", appHtml.indexOf("https://vexora.printspace.at/") >= 0 && appHtml.indexOf("duckdns") === -1 && appHtml.indexOf("F3 / F3 Pro") === -1 && appHtml.indexOf("Max G3 and F3 Pro take custom BLE payloads") >= 0);
     const ACC_IP = {
       "Content-Type": "application/json",
       "cf-connecting-ip": "203.0.113.66"
