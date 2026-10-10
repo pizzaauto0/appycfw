@@ -1668,3 +1668,24 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { border-color
 
 /* AppyHacking look: soft green-tinted glow behind the app */
 body { background-image: radial-gradient(120% 55% at 50% -8%, rgba(70, 190, 130, .09), transparent 62%); background-repeat: no-repeat; }
+
+/* AppyHacking · rounder look: softer corners, round icons, green accent */
+:root {
+  --r-sm: 12px;
+  --r: 18px;
+  --r-lg: 26px;
+  --accent: #6fdcaa;
+}
+.tab-ic, .tab-ic *, svg.pi, svg.pi *, .card h3 svg, .card h3 svg * { stroke-linecap: round; stroke-linejoin: round; }
+.tab-ic, svg.pi { stroke-width: 2; }
+.logo, .logo.lg, .about-logo, img.logo { border-radius: 50%; object-fit: cover; }
+.tabs { border-radius: 32px; }
+.tabs button { border-radius: 24px; }
+.tabs button.active { color: var(--accent); }
+.tabs button.active .tab-ic { filter: drop-shadow(0 0 6px rgba(111, 220, 170, .35)); }
+.btn, .btn.ghost, .btn.sm { border-radius: 999px; }
+.card, .sheet, .overlay .sheet { border-radius: var(--r-lg); }
+input[type="text"], input[type="email"], input[type="password"], textarea, select { border-radius: 14px; }
+.fb-faces button { border-radius: 50%; }
+.cble-tag, .p-dc, .badge, .chip, .pill { border-radius: 999px; }
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible { outline-color: var(--accent); }
