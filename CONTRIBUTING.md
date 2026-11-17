@@ -1,6 +1,6 @@
 # Contributing
 
-**Vexora is archived.** The original project will not accept pull requests, issues or feature requests — there is no active maintainer.
+**AppyHacking is archived.** The original project will not accept pull requests, issues or feature requests — there is no active maintainer.
 
 That said, the whole point of open-sourcing it is for the community:
 

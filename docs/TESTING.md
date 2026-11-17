@@ -1,6 +1,6 @@
 # Testing
 
-Vexora shipped with 11 Node suites (~870 checks) run before every release, against a local `wrangler pages dev` instance with a **fresh D1**.
+AppyHacking shipped with 11 Node suites (~870 checks) run before every release, against a local `wrangler pages dev` instance with a **fresh D1**.
 
 ## Setup
 

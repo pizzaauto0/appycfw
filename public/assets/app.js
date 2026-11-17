@@ -57,9 +57,11 @@
         if (r.ok && j && j.ok) {
           try {
             localStorage.setItem("vexora.access", JSON.stringify({
-              exp: j.exp
+              exp: j.exp,
+              code: j.admin ? "" : code.toUpperCase().replace(/[^A-Z0-9-]/g, "")
             }));
           } catch (e) {}
+          if (!location.hash) location.hash = "#dash";
           location.reload();
           return;
         }
@@ -70,6 +72,17 @@
       btn.disabled = false;
     });
     gated = true;
+    // Kommt der Code von der Zugangsseite (?ac=...), automatisch anmelden
+    try {
+      const u = new URL(location.href), ac = u.searchParams.get("ac");
+      if (ac && btn) {
+        u.searchParams.delete("ac");
+        history.replaceState(null, "", u.pathname + u.search + u.hash);
+        const inp = $("#accCode");
+        if (inp) inp.value = ac;
+        btn.click();
+      }
+    } catch (e) {}
   })();
   window.VexoraUnlock = function() {
     let pend = null;
@@ -1689,7 +1702,7 @@
     var ov = document.createElement("div");
     ov.id = "vexoraBanOverlay";
     ov.style.cssText = "position:fixed;inset:0;z-index:2147483000;background:#070708;display:flex;align-items:center;justify-content:center;padding:24px;";
-    ov.innerHTML = '<div style="max-width:420px;text-align:center">' + '<div style="width:54px;height:54px;margin:0 auto 14px;border-radius:14px;background:#161618;border:1px solid #323238;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:800">V</div>' + '<h2 style="margin:0 0 10px;font-size:20px">' + esc(tt("banT", "Access restricted")) + "</h2>" + '<p style="color:#9a9aa3;font-size:14px;line-height:1.65;margin:0 0 6px">' + esc(tt("banP", "You are banned from Vexora. To be unbanned, contact the Vexora staff.")) + "</p>" + (reason ? '<p style="color:#f4f4f5;font-size:13px;margin:0 0 4px">✦ ' + esc(reason) + "</p>" : "") + '<a href="https://discord.gg/pFyFksUyA7" rel="noopener" style="display:inline-block;margin-top:14px;padding:11px 22px;border-radius:12px;background:#f4f4f5;color:#070708;font-weight:700;text-decoration:none;font-size:14px">' + esc(tt("banContact", "Contact staff · Discord")) + "</a>" + "</div>";
+    ov.innerHTML = '<div style="max-width:420px;text-align:center">' + '<div style="width:54px;height:54px;margin:0 auto 14px;border-radius:14px;background:#161618;border:1px solid #323238;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:800">V</div>' + '<h2 style="margin:0 0 10px;font-size:20px">' + esc(tt("banT", "Access restricted")) + "</h2>" + '<p style="color:#9a9aa3;font-size:14px;line-height:1.65;margin:0 0 6px">' + esc(tt("banP", "You are banned from AppyHacking. To be unbanned, contact the AppyHacking staff.")) + "</p>" + (reason ? '<p style="color:#f4f4f5;font-size:13px;margin:0 0 4px">✦ ' + esc(reason) + "</p>" : "") + '<a href="https://discord.gg/pFyFksUyA7" rel="noopener" style="display:inline-block;margin-top:14px;padding:11px 22px;border-radius:12px;background:#f4f4f5;color:#070708;font-weight:700;text-decoration:none;font-size:14px">' + esc(tt("banContact", "Contact staff · Discord")) + "</a>" + "</div>";
     document.body.appendChild(ov);
   };
   window.Vexora.showMaint = function() {
@@ -1712,7 +1725,7 @@
       ov = document.createElement("div");
       ov.id = "vexoraMaintOverlay";
       ov.style.cssText = "position:fixed;inset:0;z-index:2147482900;background:#070708;display:flex;align-items:center;justify-content:center;padding:24px;";
-      ov.innerHTML = '<div style="max-width:420px;text-align:center">' + '<img src="assets/mark.png" alt="Vexora" style="height:44px;margin:0 auto 16px;display:block">' + '<h2 style="margin:0 0 10px;font-size:20px;color:#f4f4f5">' + esc(tt("maintT", "Under maintenance")) + "</h2>" + '<p style="color:#9a9aa3;font-size:14px;line-height:1.65;margin:0 0 18px">' + esc(tt("maintP", "We’re updating a few things — we’ll be back in a few hours.")) + "</p>" + '<button type="button" id="vexoraMaintRetry" style="padding:11px 22px;border-radius:12px;background:#f4f4f5;color:#070708;font-weight:700;border:0;font-size:14px">' + esc(tt("maintRetry", "Retry")) + "</button>" + '<br><a href="/founder/oauth/start" style="display:inline-block;margin-top:16px;color:#9a9aa3;font-size:13px">' + esc(tt("maintFounder", "Founder login")) + "</a>" + "</div>";
+      ov.innerHTML = '<div style="max-width:420px;text-align:center">' + '<img src="assets/mark.png" alt="AppyHacking" style="height:44px;margin:0 auto 16px;display:block">' + '<h2 style="margin:0 0 10px;font-size:20px;color:#f4f4f5">' + esc(tt("maintT", "Under maintenance")) + "</h2>" + '<p style="color:#9a9aa3;font-size:14px;line-height:1.65;margin:0 0 18px">' + esc(tt("maintP", "We’re updating a few things — we’ll be back in a few hours.")) + "</p>" + '<button type="button" id="vexoraMaintRetry" style="padding:11px 22px;border-radius:12px;background:#f4f4f5;color:#070708;font-weight:700;border:0;font-size:14px">' + esc(tt("maintRetry", "Retry")) + "</button>" + '<br><a href="/founder/oauth/start" style="display:inline-block;margin-top:16px;color:#9a9aa3;font-size:13px">' + esc(tt("maintFounder", "Founder login")) + "</a>" + "</div>";
       document.body.appendChild(ov);
       ov.addEventListener("click", function(e) {
         if (e.target && e.target.id === "vexoraMaintRetry") location.reload();
@@ -2144,7 +2157,7 @@
       const alt = $("#ridAltLink");
       if (alt) {
         const loginMode = which === "ridFormLogin" || which === "ridFormReset";
-        alt.textContent = loginMode ? tg("ridNewQ") || "New to Vexora? Create account" : tg("ridHaveQ") || "Already have an account? Sign in";
+        alt.textContent = loginMode ? tg("ridNewQ") || "New to AppyHacking? Create account" : tg("ridHaveQ") || "Already have an account? Sign in";
       }
       note("");
     }
@@ -2928,7 +2941,7 @@
   if (!navigator.bluetooth && $("#noBle")) $("#noBle").hidden = false;
   if ($("#appVer") && window.VEXORA) $("#appVer").textContent = VEXORA.app || VEXORA.vcu;
   if ($("#dWb")) {
-    const v = window.VEXORA ? "Vexora " + (VEXORA.app || VEXORA.vcu) : "Vexora";
+    const v = window.VEXORA ? "AppyHacking " + (VEXORA.app || VEXORA.vcu) : "AppyHacking";
     $("#dWb").textContent = navigator.bluetooth ? v : v + " · no Web Bluetooth";
   }
   paint();
@@ -3184,7 +3197,7 @@
       } catch (e) {}
     }, 600);
   })();
-  log("boot", "Vexora " + (window.VEXORA && (VEXORA.app || VEXORA.vcu) || "1.1.9"));
+  log("boot", "AppyHacking " + (window.VEXORA && (VEXORA.app || VEXORA.vcu) || "1.1.9"));
   (async () => {
     try {
       if (window.CfwFlasher && CfwFlasher.listPaired) {
@@ -3225,6 +3238,11 @@
     forced = !!isForced;
     rating = 0;
     paint();
+    const nm = $("#fbName");
+    if (nm) {
+      nm.placeholder = window.I18N && I18N.t && I18N.t("fbName") || "Your name";
+      if (!nm.value) nm.value = lsGet("vexora.fbname") || "";
+    }
     const m = $("#fbMsg");
     if (m) {
       m.value = "";
@@ -3259,6 +3277,20 @@
       }
       return;
     }
+    const fbn = (($("#fbName") || {}).value || "").trim();
+    if (fbn.length < 2) {
+      if (out) {
+        out.hidden = false;
+        out.className = "note err";
+        out.textContent = t("fbNameReq", "Please enter your name.");
+      }
+      return;
+    }
+    lsSet("vexora.fbname", fbn.slice(0, 40));
+    let accCode = "";
+    try {
+      accCode = (JSON.parse(localStorage.getItem("vexora.access") || "null") || {}).code || "";
+    } catch (e) {}
     const btn = $("#fbSend");
     if (btn) btn.disabled = true;
     try {
@@ -3279,6 +3311,8 @@
         },
         body: JSON.stringify({
           rating: rating,
+          name: fbn.slice(0, 40),
+          code: accCode,
           msg: (($("#fbMsg") || {}).value || "").slice(0, 600),
           model: model,
           how: how,

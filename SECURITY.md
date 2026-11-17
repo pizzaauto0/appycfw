@@ -2,7 +2,7 @@
 
 ## Status
 
-Vexora is **archived**. No security patches will be released for this repository. If you run a fork, you own its security.
+AppyHacking is **archived**. No security patches will be released for this repository. If you run a fork, you own its security.
 
 ## Reporting
 

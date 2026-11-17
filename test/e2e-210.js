@@ -335,7 +335,7 @@ async function closeWin(dom, label) {
       }
     });
     const t0 = await p0.text();
-    ok("deploy fresco: / sigue pública (landing) con maint=1", p0.status === 200 && t0.indexOf("Open Vexora Tuning") >= 0);
+    ok("deploy fresco: / sigue pública (landing) con maint=1", p0.status === 200 && t0.indexOf("Open AppyHacking Tuning") >= 0);
     const p0a = await fetch(BASE + "/app", {
       headers: {
         "cf-connecting-ip": TEST_IP
@@ -459,9 +459,9 @@ async function closeWin(dom, label) {
         Accept: "text/html"
       }
     })).text();
-    ok("html: pestañas CFW + Motor + VXFW oculta", html.indexOf('data-view="cfw"') >= 0 && html.indexOf('data-view="motor"') >= 0 && /data-view="vxfw" hidden/.test(html));
+    ok("html: pestañas CFW + Motor + AYFW oculta", html.indexOf('data-view="cfw"') >= 0 && html.indexOf('data-view="motor"') >= 0 && /data-view="vxfw" hidden/.test(html));
     ok("html: 3 views (cfw + motor + vxfw contenedor)", html.indexOf('id="view-cfw"') >= 0 && html.indexOf('id="view-motor"') >= 0 && html.indexOf('id="view-vxfw"') >= 0);
-    ok("html: gate VXFW solo en modo ON (CSS mode-vxfw)", html.indexOf('id="vxfwGate"') >= 0);
+    ok("html: gate AYFW solo en modo ON (CSS mode-vxfw)", html.indexOf('id="vxfwGate"') >= 0);
     ok("html: known issues ZT3 (temp/modos/power/unlock)", html.indexOf('data-i18n="zt3BugTemp"') >= 0 && html.indexOf('data-i18n="zt3BugPower"') >= 0 && html.indexOf('data-i18n="zt3BugModes"') >= 0 && html.indexOf('data-i18n="zt3BugUnlock"') >= 0);
     ok("html: guía con filas clásicas + vxfw", html.indexOf("g-classic-only") >= 0 && html.indexOf("g-vxfw-only") >= 0);
     const on2 = await jadmin("POST", "/admin/api/flags", {
@@ -472,7 +472,7 @@ async function closeWin(dom, label) {
         vxfw: true
       }
     }, TOKEN);
-    ok("panel: switch VXFW ON guardado", on2.status === 200 && on2.body.ok === true && on2.body.flags.vxfw === 1);
+    ok("panel: switch AYFW ON guardado", on2.status === 200 && on2.body.ok === true && on2.body.flags.vxfw === 1);
     for (let i = 0; i < 60; i++) {
       f = await jget("/api/features");
       if (f.body.features.vxfw === 1) break;
@@ -487,7 +487,7 @@ async function closeWin(dom, label) {
         vxfw: false
       }
     }, TOKEN);
-    ok("panel: switch VXFW OFF restaurado", off2.status === 200 && off2.body.flags.vxfw === 0);
+    ok("panel: switch AYFW OFF restaurado", off2.status === 200 && off2.body.flags.vxfw === 0);
     for (let i = 0; i < 60; i++) {
       f = await jget("/api/features");
       if (f.body.features.vxfw === 0) break;
@@ -535,7 +535,7 @@ async function closeWin(dom, label) {
     }
   });
   const tL = await rL.text();
-  ok("landing raíz: 200 + Open Vexora Tuning + Coming soon + vxfw", rL.status === 200 && tL.indexOf("Open Vexora Tuning") >= 0 && tL.indexOf("Coming soon") >= 0 && tL.indexOf("discord.gg/vxfw") >= 0);
+  ok("landing raíz: 200 + Open AppyHacking Tuning + Coming soon + vxfw", rL.status === 200 && tL.indexOf("Open AppyHacking Tuning") >= 0 && tL.indexOf("Coming soon") >= 0 && tL.indexOf("discord.gg/sGggH3VpN") >= 0);
   ok("home changelog 2.3.0 + 2.2.0 + 2.1.0 (+ anteriores)", homeHtml.indexOf("<span>2.3.0</span>") >= 0 && homeHtml.indexOf("<span>2.2.0</span>") >= 0 && homeHtml.indexOf("<span>2.1.2</span>") >= 0 && homeHtml.indexOf("<span>2.1.0</span>") >= 0);
   ok("changelog público sin detalles internos (admin/bans/stats/maintenance msg)", homeHtml.indexOf("<span>2.1.3</span>") === -1 && !/admin panel|ip banning|usage stats|csv export|admin control|bans with|maintenance message/i.test(homeHtml));
   ok("público: sin nombre personal en la nota de privacidad", homeHtml.indexOf("Ignition, founder") === -1);
@@ -553,7 +553,7 @@ async function closeWin(dom, label) {
   });
   const adminHtml = await r.text();
   ok("/admin 200 + noindex", r.status === 200 && /noindex/i.test(r.headers.get("x-robots-tag") || ""), "x-robots-tag=" + r.headers.get("x-robots-tag"));
-  ok("/admin es el panel", adminHtml.indexOf("Vexora · Admin") >= 0 && adminHtml.indexOf("admin/api/login") >= 0);
+  ok("/admin es el panel", adminHtml.indexOf("AppyHacking · Admin") >= 0 && adminHtml.indexOf("admin/api/login") >= 0);
   const feats = await jget("/api/features");
   ok("features por defecto ON", feats.status === 200 && feats.body.ok === true && feats.body.features.tire === 1 && feats.body.features.cfw === 1);
   const opts = await jget("/api/tire/options");
@@ -938,10 +938,10 @@ async function closeWin(dom, label) {
   await waitIpState(RULE_IP, st => st === 403, "baneo propagado");
   const banPage = await fetchIp("/", RULE_IP);
   const banHtml = await banPage.text();
-  ok("IP baneada: la página es la pantalla de baneo (403)", banPage.status === 403 && /banned from Vexora/i.test(banHtml) && /discord\.gg/.test(banHtml));
+  ok("IP baneada: la página es la pantalla de baneo (403)", banPage.status === 403 && /banned from AppyHacking/i.test(banHtml) && /discord\.gg/.test(banHtml));
   const banAsset = await fetchIp("/assets/app.js", RULE_IP);
   const banText = await banAsset.text();
-  ok("IP baneada: los assets también reciben la pantalla de baneo", banAsset.status === 403 && /banned from Vexora/i.test(banText));
+  ok("IP baneada: los assets también reciben la pantalla de baneo", banAsset.status === 403 && /banned from AppyHacking/i.test(banText));
   ok("IP baneada: pantalla de baneo con enlace de soporte", banText.indexOf("discord.gg") >= 0);
   const banFeat = await fetchIp("/api/features", RULE_IP);
   ok("IP baneada: /api/features denegada", banFeat.status === 403);
@@ -1490,12 +1490,12 @@ async function closeWin(dom, label) {
     a.eval("Vexora.fwMcu='1.1.7'; VexoraTire.refresh(); 1");
     await waitFor(() => {
       try {
-        return /Vexora CFW/.test(note()) && /stock tuning/i.test(note());
+        return /AppyHacking CFW/.test(note()) && /stock tuning/i.test(note());
       } catch (e) {
         return false;
       }
     }, 15e3, "aviso CFW");
-    ok("ruedas: patinete con CFW → aviso corto de que el motor vuelve a stock", /Vexora CFW/.test(note()) && /stock tuning/i.test(note()));
+    ok("ruedas: patinete con CFW → aviso corto de que el motor vuelve a stock", /AppyHacking CFW/.test(note()) && /stock tuning/i.test(note()));
     ok("ruedas: una sola base (1.3.15) — la 1.4.8 fuera del tool", a.eval("document.querySelectorAll('#tireBase option').length") === 1 && /1\.3\.15/.test(a.eval("document.querySelector('#tireBase option').textContent") || ""));
     a.eval(`(function(){var s=document.querySelector('#tireInch');s.value='11.5';s.dispatchEvent(new Event('input',{bubbles:true}));return 1})()`);
     a.eval(`(function(){ window.Vexora.flashFile = async function(){ window.__vexoraTireVerify = { version: VexoraTire.state.base.v }; }; return 1; })()`);
@@ -1594,7 +1594,7 @@ async function closeWin(dom, label) {
       }
     });
     const lHtml = await lRes.text();
-    ok("maint: la landing sigue pública (200 + Open Vexora Tuning)", lRes.status === 200 && lHtml.indexOf("Open Vexora Tuning") >= 0);
+    ok("maint: la landing sigue pública (200 + Open AppyHacking Tuning)", lRes.status === 200 && lHtml.indexOf("Open AppyHacking Tuning") >= 0);
     ok("maint 2.2.0: razón personalizada visible en la página", html.indexOf("Back at 18:00") >= 0);
     await jadmin("POST", "/admin/api/flags", {
       flags: {
@@ -1608,7 +1608,7 @@ async function closeWin(dom, label) {
     const resDef = await fetch(BASE + "/app");
     const htmlDef = await resDef.text();
     ok("maint 2.2.0: sin razón → texto por defecto", htmlDef.indexOf("Back at 18:00") === -1 && htmlDef.indexOf("Scheduled maintenance") >= 0);
-    ok("maint: página minimal B/N — Scheduled maintenance · back soon · Discord · sin relleno", htmlDef.indexOf("Scheduled maintenance") >= 0 && /back soon/i.test(htmlDef) && htmlDef.indexOf("discord.gg/vxfw") >= 0 && htmlDef.indexOf("prefers-reduced-motion") >= 0 && htmlDef.indexOf("vexorium.pages.dev") >= 0 && htmlDef.indexOf("Checked ") === -1 && htmlDef.indexOf("not affected") === -1);
+    ok("maint: página minimal B/N — Scheduled maintenance · back soon · Discord · sin relleno", htmlDef.indexOf("Scheduled maintenance") >= 0 && /back soon/i.test(htmlDef) && htmlDef.indexOf("discord.gg/sGggH3VpN") >= 0 && htmlDef.indexOf("prefers-reduced-motion") >= 0 && htmlDef.indexOf("appyhacking-app.netlify.app") >= 0 && htmlDef.indexOf("Checked ") === -1 && htmlDef.indexOf("not affected") === -1);
     ok("maint: favicon = logo real · sin tono amarillo", html.indexOf('rel="icon" type="image/png" href="/assets/mark.png"') >= 0 && html.toLowerCase().indexOf("d4a017") === -1);
     ok("maint: /cfw y /forge → 503", (await fetch(BASE + "/cfw", {
       headers: {
@@ -1770,12 +1770,12 @@ async function closeWin(dom, label) {
     await v.eval("VexoraLive.refresh()");
     await waitFor(() => {
       try {
-        return v.eval("document.querySelector('#liveVer').textContent").indexOf("Vexora Ext") === 0;
+        return v.eval("document.querySelector('#liveVer').textContent").indexOf("AppyHacking Ext") === 0;
       } catch (e) {
         return false;
       }
-    }, 1e4, "liveVer Vexora Ext");
-    ok("flash propio → etiqueta Vexora Ext (editor sigue activo)", v.eval("document.querySelector('#liveVer').textContent.indexOf('Vexora Ext')") === 0);
+    }, 1e4, "liveVer AppyHacking Ext");
+    ok("flash propio → etiqueta AppyHacking Ext (editor sigue activo)", v.eval("document.querySelector('#liveVer').textContent.indexOf('AppyHacking Ext')") === 0);
     v.eval(CLICK("#btnLiveSave"));
     await sleep(400);
     ok("tras flash propio, guardar sigue funcionando", /saved/i.test(v.eval("document.querySelector('#liveProfNote').textContent")));
@@ -1885,10 +1885,6 @@ async function closeWin(dom, label) {
   var modelAntes = wP.eval("window.Vexora.model");
   wP.eval("document.querySelector('#modelStrip .pick-card[data-group=e3]').click()");
   ok("e3 aparcado: card E3·E3 Pro deshabilitada con tag 'soon' y sin efecto al pulsar", wP.eval("document.querySelector('#modelStrip .pick-card[data-group=e3]').disabled") === true && wP.eval("!!document.querySelector('#modelStrip .pick-card[data-group=e3] .pick-soon')") === true && wP.eval("document.querySelector('#pickWhich').hidden") === true && wP.eval("window.Vexora.model") === modelAntes);
-  ok("app: botón APK en About + enlace en el gate + IPA 'pronto'", !!wP.eval("document.querySelector('[data-i18n=apkBtn]' )") && homeHtml.indexOf("assets/Vexora.apk") >= 0 && (wP.eval("(document.querySelector('[data-i18n=ipaSoon]')||{}).textContent") || "").length > 3);
-  const apkRes = await fetch(BASE + "/assets/Vexora.apk");
-  const apkBytes = new Uint8Array(await apkRes.arrayBuffer());
-  ok("app: /assets/Vexora.apk sirve el APK real (200 · >500 KB · ZIP magic PK)", apkRes.status === 200 && apkBytes.length > 5e5 && apkBytes[0] === 80 && apkBytes[1] === 75, apkRes.status + " · " + apkBytes.length + " B");
   wP.eval("document.querySelector('#modelStrip .pick-card[data-model=g3]').click()");
   ok("gate: al volver a un modelo simple, el selector 'cuál es el tuyo' se oculta", wP.eval("document.querySelector('#pickWhich').hidden") === true && wP.eval("window.Vexora.model") === "g3");
   wP.eval("document.querySelector('#modelStrip .pick-card[data-group=f3]').click()");
@@ -1907,7 +1903,7 @@ async function closeWin(dom, label) {
   ok("e3 ble: handshake re-envía el INIT y recorre 0x21→0x04→0x16", fxSrc.indexOf("chain.indexOf(X.VCU)") >= 0 && fxSrc.indexOf("perDst") >= 0);
   ok("e3 ble: safe25 tolerante al mapa de registros del E3 (sin timeout crudo)", exSrc.indexOf("safe25: ") >= 0 && exSrc.indexOf("su mapa de registros difiere") >= 0);
   ok("i18n: clave whichOne ×5 idiomas", fs.readFileSync(path.join(__dirname, "..", "public", "assets", "i18n.js"), "utf8").split("whichOne:").length - 1 === 5);
-  ok("legal: sin 'Ignition' en el aviso de entrada (solo equipo de Vexora)", (wL.eval("document.querySelector('#legalOverlay').textContent") || "").indexOf("Ignition") === -1);
+  ok("legal: sin 'Ignition' en el aviso de entrada (solo equipo de AppyHacking)", (wL.eval("document.querySelector('#legalOverlay').textContent") || "").indexOf("Ignition") === -1);
   ok("i18n: sin 'Ignition' en ningún texto (×3 idiomas)", fs.readFileSync(path.join(__dirname, "..", "public", "assets", "i18n.js"), "utf8").indexOf("Ignition") === -1);
   await closeWin(f3Dom, "f3");
   console.log("== M · 2.3.0: valoración 👍/👎 + presets por enlace + FR/IT ==");
@@ -2523,14 +2519,14 @@ async function closeWin(dom, label) {
     await closeWin(shBad, "shareBad");
   }
   {
-    console.log("== N · VXFW · DPC pow4 ==");
+    console.log("== N · AYFW · DPC pow4 ==");
     const fsN = require("fs"), pathN = require("path");
     const VU2 = require(pathN.join(__dirname, "..", "server", "worker.js"));
     const tea2 = VU2._internal.TEA;
     const baseDpc = fsN.readFileSync(pathN.join(__dirname, "..", "public", "cfw", "bases", "mcu-vxfw-dpc4.dec.bin"));
     ok("vxfw: base 59.388 B + marker SCOOTER_MCU_0001 + key-slot FF", baseDpc.length === 59388 && baseDpc.slice(1024, 1040).toString("latin1") === "SCOOTER_MCU_0001" && Array.from(baseDpc.slice(1056, 1078)).every(c => c === 255));
     const wkN = fsN.readFileSync(pathN.join(__dirname, "..", "server", "worker.js"), "utf8");
-    ok("vxfw: worker integra dpc4 (base + enforce G3 + note)", wkN.indexOf("mcu-vxfw-dpc4.dec.bin") >= 0 && wkN.indexOf("VXFW DPC is Max G3 only") >= 0 && wkN.indexOf("VXFW · DPC pow4") >= 0);
+    ok("vxfw: worker integra dpc4 (base + enforce G3 + note)", wkN.indexOf("mcu-vxfw-dpc4.dec.bin") >= 0 && wkN.indexOf("AYFW DPC is Max G3 only") >= 0 && wkN.indexOf("AYFW · DPC pow4") >= 0);
     const VXIP = {
       "cf-connecting-ip": "172.16.4.41"
     };
@@ -2547,7 +2543,7 @@ async function closeWin(dom, label) {
       }
     }, VXIP);
     let dpcImg = null;
-    ok("vxfw: build API 200 · part mcu · note VXFW", b1.status === 200 && b1.body && b1.body.ok === true && b1.body.part === "mcu" && String(b1.body.note || "").indexOf("VXFW") >= 0, JSON.stringify(b1.body || {}).slice(0, 120));
+    ok("vxfw: build API 200 · part mcu · note AYFW", b1.status === 200 && b1.body && b1.body.ok === true && b1.body.part === "mcu" && String(b1.body.note || "").indexOf("AYFW") >= 0, JSON.stringify(b1.body || {}).slice(0, 120));
     if (b1.body && b1.body.ok) {
       dpcImg = tea2.unwrap(Buffer.from(b1.body.enc, "base64"));
       const u8 = dpcImg.body;
@@ -2685,7 +2681,7 @@ async function closeWin(dom, label) {
       }
     });
     const tRoot = await rRoot.text();
-    ok("landing raíz: pública (minimal: trio + flota + acceso 30s + License soon + vxfw + Studio CTA)", rRoot.status === 200 && tRoot.indexOf("Open Vexora Tuning") >= 0 && tRoot.indexOf("Open Vexora BLE Studio") >= 0 && tRoot.indexOf("https://vexora.printspace.at/") >= 0 && tRoot.indexOf("VXFW") >= 0 && tRoot.indexOf("screen colors") >= 0 && tRoot.indexOf("F3 PRO") >= 0 && tRoot.indexOf("Coming soon") >= 0 && tRoot.indexOf("discord.gg/vxfw") >= 0);
+    ok("landing raíz: pública (minimal: trio + flota + acceso 30s + License soon + vxfw + Studio CTA)", rRoot.status === 200 && tRoot.indexOf("Open AppyHacking Tuning") >= 0 && tRoot.indexOf("printspace") === -1 && tRoot.indexOf("AYFW") >= 0 && tRoot.indexOf("F3 PRO") >= 0 && tRoot.indexOf("Coming soon") >= 0 && tRoot.indexOf("discord.gg/sGggH3VpN") >= 0);
     const rAppH = await fetch(BASE + "/app", {
       headers: {
         Accept: "text/html"
@@ -2693,9 +2689,8 @@ async function closeWin(dom, label) {
     });
     const appHtml = await rAppH.text();
     ok("app servida en /app (gate incluido)", rAppH.status === 200 && appHtml.indexOf("accessOverlay") >= 0);
-    ok("vxfw switch: 3 pestañas en el html (CFW + Motor visibles por defecto, VXFW oculta hasta el flag)", appHtml.indexOf('data-view="vxfw"') >= 0 && /data-view="vxfw" hidden/.test(appHtml) && appHtml.indexOf('data-view="cfw"') >= 0 && appHtml.indexOf('data-view="motor"') >= 0 && appHtml.indexOf('id="view-vxfw"') >= 0 && appHtml.indexOf('id="view-motor"') >= 0 && appHtml.indexOf('id="view-cfw"') >= 0);
+    ok("vxfw switch: 3 pestañas en el html (CFW + Motor visibles por defecto, AYFW oculta hasta el flag)", appHtml.indexOf('data-view="vxfw"') >= 0 && /data-view="vxfw" hidden/.test(appHtml) && appHtml.indexOf('data-view="cfw"') >= 0 && appHtml.indexOf('data-view="motor"') >= 0 && appHtml.indexOf('id="view-vxfw"') >= 0 && appHtml.indexOf('id="view-motor"') >= 0 && appHtml.indexOf('id="view-cfw"') >= 0);
     ok("vxfw: gate + best tune + tuning dentro de la vista", appHtml.indexOf('id="vxfwGate"') >= 0 && appHtml.indexOf('id="btnVxfwBest"') >= 0 && appHtml.indexOf('data-vxfw-lock="1"') >= 0 && appHtml.indexOf('id="panelDpc4"') >= 0 && appHtml.indexOf('id="btnVcu"') >= 0);
-    ok("vxfw: Studio link actualizado (printspace) y solo F3 Pro", appHtml.indexOf("https://vexora.printspace.at/") >= 0 && appHtml.indexOf("duckdns") === -1 && appHtml.indexOf("F3 / F3 Pro") === -1 && appHtml.indexOf("Max G3 and F3 Pro take custom BLE payloads") >= 0);
     const ACC_IP = {
       "Content-Type": "application/json",
       "cf-connecting-ip": "203.0.113.66"
@@ -3051,7 +3046,7 @@ async function closeWin(dom, label) {
     }, atok);
     ok("agente responde", rep.status === 200 && rep.body.ok);
     const mv = await jget("/api/chat/msg?id=" + cid + "&after=0", HT(ctok));
-    ok("visitor ve: active + system + respuesta del agente", mv.body.status === "active" && mv.body.messages.some(m => m.who === "system" && /chatting with Vexora Support/.test(m.body)) && mv.body.messages.some(m => m.who === "agent" && /error code/.test(m.body)));
+    ok("visitor ve: active + system + respuesta del agente", mv.body.status === "active" && mv.body.messages.some(m => m.who === "system" && /chatting with AppyHacking Support/.test(m.body)) && mv.body.messages.some(m => m.who === "agent" && /error code/.test(m.body)));
     const vrep = await jpost("/api/chat/msg?id=" + cid, {
       id: cid,
       body: "Here is the screenshot: ERR_8"
@@ -3150,7 +3145,7 @@ async function closeWin(dom, label) {
     });
     const atok = lg.body.token;
     const me0 = await jadmin("GET", "/admin/api/support/me", null, atok);
-    ok("me → nombre Vexora Support + avail", me0.status === 200 && me0.body.ok && me0.body.name === "Vexora Support" && me0.body.avail === 1);
+    ok("me → nombre AppyHacking Support + avail", me0.status === 200 && me0.body.ok && me0.body.name === "AppyHacking Support" && me0.body.avail === 1);
     const av0 = await jadmin("POST", "/admin/api/support/avail", {
       avail: 0
     }, atok);
@@ -3163,7 +3158,7 @@ async function closeWin(dom, label) {
     const acc = await jadmin("POST", "/admin/api/support/accept", {
       id: cid
     }, atok);
-    ok("accept → agent en la respuesta", acc.body.ok && acc.body.agent === "Vexora Support");
+    ok("accept → agent en la respuesta", acc.body.ok && acc.body.agent === "AppyHacking Support");
     const acc2 = await jadmin("POST", "/admin/api/support/accept", {
       id: cid
     }, atok);
@@ -3176,11 +3171,11 @@ async function closeWin(dom, label) {
       id: cid,
       body: "second reply"
     }, atok);
-    ok("dos respuestas OK con agente identificado", rep1.body.ok && rep2.body.ok && rep2.body.agent === "Vexora Support");
+    ok("dos respuestas OK con agente identificado", rep1.body.ok && rep2.body.ok && rep2.body.agent === "AppyHacking Support");
     const mv = await jget("/api/chat/msg?id=" + cid + "&after=0", HT(ctok));
-    const sysCount = (mv.body.messages || []).filter(m => m.who === "system" && /You are now chatting with Vexora Support/.test(m.body)).length;
+    const sysCount = (mv.body.messages || []).filter(m => m.who === "system" && /You are now chatting with AppyHacking Support/.test(m.body)).length;
     ok("SIN duplicados: system de bienvenida ×1 (antes ×N)", sysCount === 1);
-    ok("visitor ve status active con agent", mv.body.status === "active" && mv.body.agent === "Vexora Support");
+    ok("visitor ve status active con agent", mv.body.status === "active" && mv.body.agent === "AppyHacking Support");
     const rEarly = await jpost("/api/chat/rate?id=" + cid, {
       stars: 5
     }, HT(ctok));
@@ -3202,8 +3197,8 @@ async function closeWin(dom, label) {
     }, HT(ctok));
     ok("re-valorar → 409", rDup.status === 409);
     const stats = await jadmin("GET", "/admin/api/support/stats", null, atok);
-    const vs = (stats.body.agents || []).find(a => a.name === "Vexora Support");
-    ok("stats: Vexora Support con 1 valoración media 4.0", !!vs && vs.stars_n >= 1 && vs.avg === 4);
+    const vs = (stats.body.agents || []).find(a => a.name === "AppyHacking Support");
+    ok("stats: AppyHacking Support con 1 valoración media 4.0", !!vs && vs.stars_n >= 1 && vs.avg === 4);
     const crypto = require("crypto");
     const b64u = t2 => Buffer.from(t2, "utf8").toString("base64").replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
     const mkTok = name => {
@@ -3255,7 +3250,7 @@ async function closeWin(dom, label) {
     ok("typing sin token válido → 404", tyBad.status === 404);
     const logs = await jadmin("GET", "/admin/api/support/chats?closed=1", null, atok);
     const logRow = (logs.body.chats || []).find(c => c.id === cid);
-    ok("LOGS: chat cerrado con agente y valoracion 4", logs.status === 200 && !!logRow && logRow.agent === "Vexora Support" && logRow.stars === 4 && logRow.nmsgs >= 3);
+    ok("LOGS: chat cerrado con agente y valoracion 4", logs.status === 200 && !!logRow && logRow.agent === "AppyHacking Support" && logRow.stars === 4 && logRow.nmsgs >= 3);
   }
   {
     console.log("--- Q · asistente IA 2.7.0");
@@ -3417,9 +3412,9 @@ async function closeWin(dom, label) {
     ok("valoración del chat del bot aceptada", br2.status === 200 && br2.body.ok === true);
     const st4 = await jadmin("GET", "/admin/api/support/stats?limit=300", null, TOKEN);
     const names4 = (st4.body.agents || []).map(a2 => a2.name).join(",");
-    ok("la IA NO es agente (cero filas Vexora AI en TEAM)", !(st4.body.agents || []).some(a2 => a2.name === "Vexora AI"), "agents=" + names4);
+    ok("la IA NO es agente (cero filas AppyHacking AI en TEAM)", !(st4.body.agents || []).some(a2 => a2.name === "AppyHacking AI"), "agents=" + names4);
     const lr3 = await jadmin("GET", "/admin/api/support/chats?closed=1&limit=60&q=" + encodeURIComponent("Bot Tester"), null, TOKEN);
-    ok("LOGS: valoración del bot atribuida a Vexora AI", (lr3.body.chats || []).some(c => c.stars === 5));
+    ok("LOGS: valoración del bot atribuida a AppyHacking AI", (lr3.body.chats || []).some(c => c.stars === 5));
     const ovw = await jadmin("GET", "/admin/api/support/overview", null, TOKEN);
     ok("overview: contadores del desk", ovw.status === 200 && ovw.body.ok === true && typeof ovw.body.waiting === "number" && typeof ovw.body.complaints === "number" && typeof ovw.body.closed === "number");
     const pg7 = await jadmin("POST", "/admin/api/support/purge", {
@@ -3428,7 +3423,7 @@ async function closeWin(dom, label) {
     ok("purge 7 días: nada tan viejo aún", pg7.status === 200 && pg7.body.ok === true && pg7.body.deleted === 0);
     const trB = await jadmin("POST", "/admin/api/support/transfer", {
       id: so.body.id,
-      to: "Vexora AI"
+      to: "AppyHacking AI"
     }, agTokQ);
     ok("transfer a la IA bloqueado (no es agente)", trB.status === 400);
     const bl2 = await jadmin("POST", "/admin/api/support/block", {

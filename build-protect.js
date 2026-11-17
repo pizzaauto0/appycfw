@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Vexora · build de protección
+ * AppyHacking · build de protección
  * Genera protected/ a partir de public/ (fuente legible):
  *  - JS propio  -> ofuscado (strings cifradas RC4, identificadores ilegibles,
  *                  anti-debug que bloquea DevTools, anti-reformateo)

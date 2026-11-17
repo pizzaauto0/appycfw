@@ -1,4 +1,4 @@
-# Vexora · redirecciones para Cloudflare (Pages y Workers static assets)
+# AppyHacking · redirecciones para Cloudflare (Pages y Workers static assets)
 # Alias de rutas. Un redirect solo aplica si la ruta no existe como archivo.
 # /vexora se conserva como alias legacy del nombre anterior.
 

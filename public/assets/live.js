@@ -952,7 +952,7 @@
         let mcuLabel = mcuVer;
         if (kind === "ext") {
           const name = await cfwString();
-          vcuLabel = (vcuCfw ? "Vexora Ext " : (name || "CFW") + " ") + ver;
+          vcuLabel = (vcuCfw ? "AppyHacking Ext " : (name || "CFW") + " ") + ver;
           const st = await cfwState();
           if (st) ride = (st.active === 1 ? "TUN" : "STD") + " · " + ride;
         } else if (vcuCfw) {
@@ -960,7 +960,7 @@
           if (flashedVcu && !(window.VEXORA && VEXORA.isVcu(ver))) {
             ver = window.VEXORA && VEXORA.vcu || "1.1.7";
           }
-          vcuLabel = "Vexora CFW " + ver;
+          vcuLabel = "AppyHacking CFW " + ver;
         } else {
           vcuLabel = "stock " + ver;
         }
@@ -968,7 +968,7 @@
           if (flashedMcu && !(window.VEXORA && VEXORA.isMcu && VEXORA.isMcu(mcuVer))) {
             mcuVer = window.VEXORA && VEXORA.mcu || "1.1.7";
           }
-          mcuLabel = "Vexora CFW " + mcuVer;
+          mcuLabel = "AppyHacking CFW " + mcuVer;
         } else {
           mcuLabel = mcuVer && mcuVer !== "—" && mcuVer !== "err" ? "stock " + mcuVer : mcuVer;
         }
@@ -1725,7 +1725,7 @@
       },
       async request(frame) {
         if (frame.cmd === 240) {
-          const t = (new TextEncoder).encode("Vexora Ext");
+          const t = (new TextEncoder).encode("AppyHacking Ext");
           return {
             src: X.VCU,
             dst: X.HOST,
