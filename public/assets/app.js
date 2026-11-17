@@ -1,6 +1,5 @@
 (() => {
   let gated = false;
-  const SHOP_VERIFY_URL = "https://appycodeee.netlify.app/api/verify-access";
   const $ = s => document.querySelector(s);
   (function accessGate() {
     let tok = null;
@@ -23,37 +22,16 @@
       btn.disabled = true;
       if (err) err.textContent = "";
       try {
-        let r, j;
-        if (/^CST/i.test(code)) {
-          r = await fetch(SHOP_VERIFY_URL, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-              code: code
-            })
-          });
-          const sj = await r.json().catch(() => null);
-          j = sj && sj.ok ? {
-            ok: true,
-            exp: Date.now() + 2592e6
-          } : {
-            ok: false,
-            error: r.status === 404 || r.status === 400 ? "Invalid code" : "Code check unavailable"
-          };
-        } else {
-          r = await fetch("/api/access", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-              code: code
-            })
-          });
-          j = await r.json().catch(() => null);
-        }
+        const r = await fetch("/api/access", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            code: code
+          })
+        });
+        const j = await r.json().catch(() => null);
         if (r.ok && j && j.ok) {
           try {
             localStorage.setItem("vexora.access", JSON.stringify({
@@ -1833,11 +1811,21 @@
       rebooting: "Reboot",
       done: "Done"
     };
+    flashing = true;
+    stopPoll();
+    try {
+      await withBle(async () => {});
+    } catch (e) {}
+    if (session.flushPending) session.flushPending();
     preFlashCheck(bytes, usePart).catch(() => {});
     otaUI("Flashing " + usePart.toUpperCase(), "Starting", 0, 0, bytes.length);
     try {
       const flashedSession = await CfwFlasher.flash(usePart, bytes, {
         session: session,
+        onSession: s => {
+          session = s;
+          if (window.VexoraLive) VexoraLive.setSession(s);
+        },
         onStatus: m => {
           otaUI(null, m);
           if ($("#flashStatus")) $("#flashStatus").textContent = m;
@@ -1903,6 +1891,9 @@
       if ($("#flashStatus")) $("#flashStatus").textContent = m;
       log("err", m);
       setTimeout(otaHide, /ACK=|did not answer start|timeout dst|Pairing not confirmed|disconnect|Connection lost/i.test(m) ? 2e4 : 8e3);
+    } finally {
+      flashing = false;
+      if (session && session.request && !session.dead && phase === "live") startPoll();
     }
   }
   async function loadFlashFile(file) {
