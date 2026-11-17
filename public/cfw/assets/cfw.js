@@ -687,6 +687,25 @@
       const okMsg = (window.I18N && I18N.t && I18N.t("shareOk")) || "Share link copied";
       try { await navigator.clipboard.writeText(url); note(okMsg); } catch (e) { note(url); }
     });
+    $$("[data-zip]").forEach((b) => on(b, "click", () => {
+      const [kind, flavor] = b.dataset.zip.split(":");
+      const run = async () => {
+        const prev = mcuFlavor;
+        if (flavor) mcuFlavor = flavor;
+        b.disabled = true;
+        try {
+          const built = await build(kind);
+          const name = await Vexora.saveZip(built.enc, built.part, flavor || "");
+          note("ZIP saved: " + name);
+        } catch (e) {
+          note(String((e && e.message) || e));
+        } finally {
+          mcuFlavor = prev;
+          b.disabled = false;
+        }
+      };
+      if (flavor === "ultra" || flavor === "dpc4") wantUnsafe(run); else run();
+    }));
     window.VexoraCfw = { build, summary, refreshBaseNote, shareTune, applyTune, _refreshFlags: loadFeatures };
   } catch (e) {
     console.error("cfw.js", e);

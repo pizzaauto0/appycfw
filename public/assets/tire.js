@@ -227,6 +227,36 @@
         S.busy = false;
       }
     });
+    on("#tireZip", "click", async () => {
+      if (!S.base || S.busy) return;
+      S.busy = true;
+      status(t("wheelBuilding", "Building on the server…"), "");
+      try {
+        const r = await fetch("/api/tire/build", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            model: S.model,
+            version: S.base.v,
+            inch: S.inch
+          })
+        });
+        const j = await r.json().catch(() => null);
+        if (!r.ok || !j || !j.ok) throw new Error(j && j.error || "Build failed (" + r.status + ")");
+        const bin = atob(j.enc);
+        const enc = new Uint8Array(bin.length);
+        for (let i = 0; i < bin.length; i++) enc[i] = bin.charCodeAt(i);
+        const name = await Vexora.saveZip(enc, "mcu", "Wheel " + S.inch.toFixed(1) + "in");
+        status("✓ ZIP saved: " + name, "ok");
+      } catch (e) {
+        const msg = String(e.message || e);
+        status("✗ " + (/Failed to fetch|NetworkError/i.test(msg) ? t("wheelNet", "Could not reach the server — check your connection and try again") : msg));
+      } finally {
+        S.busy = false;
+      }
+    });
     syncModel(false);
     setInterval(refresh, 5e3);
     window.VexoraTire = {

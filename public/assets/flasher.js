@@ -1312,6 +1312,7 @@
     listPaired: listPaired,
     abortConnect: abortConnect,
     waitForUnit: waitForUnit,
+    md5: md5bytes,
     reopen: reopenSession,
     X: X,
     PROFILES: PROFILES

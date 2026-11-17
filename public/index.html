@@ -508,7 +508,7 @@ try {
           <p class="note" data-i18n="zt3BugTemp"></p>
           <p class="note" data-i18n="zt3BugModes"></p>
           <p class="note" data-i18n="zt3BugUnlock"></p>
-          <div class="actions"><button type="button" class="btn" id="btnVcuZt3" data-i18n="bFlashVcu">Flash controller</button></div>
+          <div class="actions"><button type="button" class="btn" id="btnVcuZt3" data-i18n="bFlashVcu">Flash controller</button> <button type="button" class="btn ghost" data-zip="vcu">Save as ZIP</button></div>
         </div>
         <div class="card fold is-open" data-g3-only="1" id="cockpitCard">
           <h3 data-i18n="tCockpitT">Sounds &amp; cockpit (beta)</h3>
@@ -636,7 +636,7 @@ try {
         </div>
         <div class="card" data-g3-only="1" data-vxfw-lock="1" id="cfwFlashCard">
           <p class="note" id="preFlash" hidden></p>
-          <div class="actions" style="margin-top:0"><button type="button" class="btn" id="btnVcu" data-i18n="bFlashVcu">Flash controller</button></div>
+          <div class="actions" style="margin-top:0"><button type="button" class="btn" id="btnVcu" data-i18n="bFlashVcu">Flash controller</button> <button type="button" class="btn ghost" data-zip="vcu">Save as ZIP</button></div>
         </div>
         <div class="card fold is-open" data-stock-only="1" id="cfwRestoreCard">
           <h3 data-i18n="restoreT">Stock restore</h3>
@@ -693,7 +693,7 @@ try {
             <label data-i18n="lScale">Strength</label><span class="val"><span data-for="mcu-scale">2300</span></span>
             <input id="mcu-scale" type="range" min="256" max="4095" value="2300" />
           </div>
-          <div class="actions"><button type="button" class="btn" id="btnMcu" data-i18n="bFlashMcu">Flash motor profile</button></div>
+          <div class="actions"><button type="button" class="btn" id="btnMcu" data-i18n="bFlashMcu">Flash motor profile</button> <button type="button" class="btn ghost" data-zip="mcu:fwk">Save as ZIP</button></div>
         </div>
         <div data-vxfw-lock="1" class="card fold is-open" id="panelUltra" data-flash-only="1" hidden>
           <h3 data-i18n="tUltra">Extra peak power</h3>
@@ -701,12 +701,12 @@ try {
             <label data-i18n="lPeak">Peak current</label><span class="val"><span data-for="mcu-punta">327</span></span>
             <input id="mcu-punta" type="range" min="200" max="2000" value="327" />
           </div>
-          <div class="actions"><button type="button" class="btn" id="btnMcuUltra" data-i18n="bFlashUltra">Flash extra power</button></div>
+          <div class="actions"><button type="button" class="btn" id="btnMcuUltra" data-i18n="bFlashUltra">Flash extra power</button> <button type="button" class="btn ghost" data-zip="mcu:ultra">Save as ZIP</button></div>
         </div>
         <div data-vxfw-lock="1" class="card fold is-open" id="panelDpc4" data-flash-only="1" hidden>
           <h3><span data-i18n="tVxfw">AYFW · DPC pow4</span> <span class="fold-hint">G3</span></h3>
           <p class="note" data-i18n="nVxfw"></p>
-          <div class="actions"><button type="button" class="btn" id="btnMcuDpc4" data-i18n="bVxfw">Flash AYFW · DPC</button></div>
+          <div class="actions"><button type="button" class="btn" id="btnMcuDpc4" data-i18n="bVxfw">Flash AYFW · DPC</button> <button type="button" class="btn ghost" data-zip="mcu:dpc4">Save as ZIP</button></div>
         </div>
         <div data-vxfw-lock="1" class="card fold is-open">
           <h3><span data-i18n="tLiveMotor">Fine tuning while you ride</span> <span class="fold-hint" data-i18n="hintTopThrottle">Top speed · throttle</span></h3>
@@ -817,6 +817,7 @@ try {
             <p class="note" id="tireResult"></p>
             <div class="actions">
               <button type="button" class="btn" id="tireFlash" data-i18n="wheelFlash">Flash to scooter</button>
+              <button type="button" class="btn ghost" id="tireZip">Save as ZIP</button>
             </div>
           </div>
           <p class="note" id="tireStatus"></p>

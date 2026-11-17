@@ -1896,6 +1896,46 @@
       if (session && session.request && !session.dead && phase === "live") startPoll();
     }
   }
+  window.Vexora.saveZip = async function(enc, part, label) {
+    if (!enc || !window.JSZip) throw new Error("ZIP support missing");
+    const id = window.Vexora.model || "g3";
+    const model = id === "f3pro" ? "g3" : id;
+    const type = String(part || "mcu").toUpperCase();
+    const toHex = u8 => Array.from(u8, b => b.toString(16).padStart(2, "0")).join("");
+    const md5 = window.CfwFlasher && CfwFlasher.md5 ? toHex(CfwFlasher.md5(enc)) : "";
+    const info = {
+      schemaVersion: 1,
+      firmware: {
+        model: model,
+        displayName: model.toUpperCase() + "-" + type + "-AppyHacking",
+        enforceModel: true,
+        type: type,
+        compatible: [ type === "MCU" ? "x3_MCU_AT32" : model + "_VCU_AT32" ],
+        encryption: "encrypted",
+        md5: {
+          enc: md5
+        }
+      }
+    };
+    const zip = new JSZip();
+    zip.file("FIRM.bin.enc", enc);
+    zip.file("info.json", JSON.stringify(info, null, 2));
+    const blob = await zip.generateAsync({
+      type: "blob",
+      compression: "DEFLATE"
+    });
+    const name = "AppyHacking " + model.toUpperCase() + " " + type + (label ? " " + label : "") + ".zip";
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = name;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => {
+      URL.revokeObjectURL(a.href);
+      a.parentNode && a.parentNode.removeChild(a);
+    }, 1e3);
+    return name;
+  };
   async function loadFlashFile(file) {
     const name = file.name.toLowerCase();
     if (name.endsWith(".zip")) {
